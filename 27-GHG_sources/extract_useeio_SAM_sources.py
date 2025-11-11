@@ -56,6 +56,13 @@ totals = (totals.groupby(['Description', 'AttributionSources'], dropna=False)
                       (x['Impact'].cumsum() / x['Impact'].sum() * 100).round(1))
           )
 
+# add in secondary attribution sources (not accessed directly from the config but
+# just done manually)
+sec_attribution = {'EIA_MECS_Energy': 'BEA_Detail_USE_SUT',
+                   'USDA_CoA_Cropland': 'USDA_CoA_Cropland_NAICS'}
+totals['SecondaryAttribution'] = totals['AttributionSources'].map(sec_attribution)
+
 print(totals[['Rank', 'Description', 'AttributionSources', 'a_sets', 'CumulativeImpact']])
-(totals[['Rank', 'Description', 'AttributionSources', 'a_sets', 'CumulativeImpact']]
+(totals[['Rank', 'Description', 'AttributionSources', 'SecondaryAttribution',
+         'a_sets', 'CumulativeImpact']]
  .to_csv('27-GHG_sources/useeio_SAM_sources.csv', index=False))
