@@ -78,13 +78,11 @@ calculateUseIndustriesBeforeandAfter <- function(m) {
 
   # For printing to excel, cbind rownames to dataframe
   U_ratios <- cbind(rownames(U_ratios), U_ratios)
+  colnames(U_ratios)[1] <- "Com_Code"
     
   # Save sorted ratios matrix to list
 
-  
-  l[["U_ratios"]] <- as.data.frame(U_ratios)
-
-  return(l)
+  return(as.data.frame(U_ratios))
 }
 
 
@@ -94,15 +92,29 @@ U_tables <- c("Detail_Use_2017_PRO","Detail_Use_2017_PUR","Summary_Use_2017_PRO"
       "Summary_Use_2020_PRO","Summary_Use_2021_PRO","Summary_Use_2022_PRO")
 
 results_by_table <- list()
+top_diffs <- data.frame()
+top_diffs_num <- 10
+
 for(u in U_tables) {
   
-    result_list <- calculateUseIndustriesBeforeandAfter(u)
-    results_by_table[[u]] <- result_list[["U_ratios"]]
-    
+  U_ratios <- calculateUseIndustriesBeforeandAfter(u)
+  results_by_table [[u]] <- U_ratios
+  df <- U_ratios[1:top_diffs_num,1:2]
+  colnames(df) <- paste(u,"_",colnames(df), sep = "")
+
+  if(length(top_diffs) == 0){
+    top_diffs <- df
+  }
+  top_diffs <- cbind(top_diffs, df) # Append first ten rows and first 2 cols of every Use table
+  
+
 }
 
-# Print tables to excel file.
-# Writing to excel because we are writing multiple sheets to one file 
+# Print tables
+# Writing results_by_table to excel because we are writing multiple sheets to one file 
 
 writexl::write_xlsx(results_by_table, "4-BeforevAfterRedef/BvA_Full_Use_Tables.xlsx", format_headers = FALSE)
+write.csv(top_diffs,"4-BeforevAfterRedef/TopDiffIndustriesByYear.csv", row.names = FALSE)
+
+
 
