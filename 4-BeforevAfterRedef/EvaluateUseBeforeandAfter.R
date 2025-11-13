@@ -57,34 +57,41 @@ calculateUseIndustriesBeforeandAfter <- function(m) {
   
   ## Compare U_b and U
   # Get ratios before:after
-  U_ratio <- U_b/U_a
+  U_ratios <- U_b/U_a
   
   # Replace all NaN (0/0) with 1 to indicate that the values are equivalent between matrices
-  U_ratio[is.na(U_ratio)] <- 1
+  U_ratios[is.na(U_ratios)] <- 1
   
-  # Re-order the matrix, descring from left to right, by the values in the totals tow
-  total_row_index <- which(rownames(U_ratio) %in% tot_row)
-  U_ratio <- U_ratio[,order(U_ratio[total_row_index,], decreasing = TRUE)]
+  # Re-order the matrix, descending from left to right, by the values in the totals tow
+  total_row_index <- which(rownames(U_ratios) %in% tot_row)
+  U_ratios <- U_ratios[,order(U_ratios[total_row_index,], decreasing = TRUE)]
+  
+  # The first column should now be where the max value is for the totals row
+  # Now order the matrix such that the rows are in descending order for that column
+  
+  U_ratios <- U_ratios[order(U_ratios[,1], decreasing = TRUE),]
   
   # Move totals row to the top
-  other_rows <- seq(1:nrow(U_ratio))[!(seq(1:nrow(U_ratio)) %in% total_row_index)]
-  U_ratio <- U_ratio[c(total_row_index, other_rows),]
-  
+  total_row_index <- which(rownames(U_ratios) %in% tot_row) # This index will have changed during the last line
+  other_rows <- seq(1:nrow(U_ratios))[!(seq(1:nrow(U_ratios)) %in% total_row_index)]
+  U_ratios <- U_ratios[c(total_row_index, other_rows),]
+
+  # For printing to excel, cbind rownames to dataframe
+  U_ratios <- cbind(rownames(U_ratios), U_ratios)
+    
   # Save sorted ratios matrix to list
+
   
-  l[["U_ratios"]] <- as.data.frame(U_ratio)
-  
-  
-  #TODO: Perform additional analysis on top 10 most changed values in the sorted matrix
+  l[["U_ratios"]] <- as.data.frame(U_ratios)
 
   return(l)
 }
 
+
+# START OF MAIN PART OF SCRIPT
 # There are no summary use tables in purchaser prices saved as of useeior v.1.8
 U_tables <- c("Detail_Use_2017_PRO","Detail_Use_2017_PUR","Summary_Use_2017_PRO","Summary_Use_2018_PRO","Summary_Use_2019_PRO",
       "Summary_Use_2020_PRO","Summary_Use_2021_PRO","Summary_Use_2022_PRO")
-
-PRO_or_PUR <- c("_PRO", "_PUR")
 
 results_by_table <- list()
 for(u in U_tables) {
@@ -94,4 +101,8 @@ for(u in U_tables) {
     
 }
 
+# Print tables to excel file.
+# Writing to excel because we are writing multiple sheets to one file 
+
+writexl::write_xlsx(results_by_table, "4-BeforevAfterRedef/BvA_Full_Use_Tables.xlsx", format_headers = FALSE)
 
