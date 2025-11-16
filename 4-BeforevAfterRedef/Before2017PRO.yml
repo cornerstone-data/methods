@@ -1,0 +1,11 @@
+Model: "Before2017PRO"
+BaseIOSchema: 2017
+BaseIOLevel: "Detail"
+IOYear: 2017 # Year for IO data
+ModelRegionAcronyms: ["US"]
+ModelType: "EIO"
+IODataSource: "BEA"
+BasePriceType: "PRO" #producer
+BasewithRedefinitions: FALSE
+CommodityorIndustryType: "Commodity"
+ScrapIncluded: FALSE
