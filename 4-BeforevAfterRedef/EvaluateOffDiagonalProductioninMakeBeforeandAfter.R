@@ -3,43 +3,12 @@
 library(devtools)
 load_all("../useeior")
 
-# Get a Make table with just off diagonal values
-getOffDiagonalMake <- function(Make) {
-  #Resort to index rows and columns by commodities so the the diagonal means the primary production
-  #Set that to zero and add the remainder of production
-  
-  comswithprimaryindustries <- colnames(Make)[which(colnames(Make) %in% rownames(Make))]
-  indwithnoprimarycom <- rownames(Make)[-which(rownames(Make) %in% c(colnames(Make),"T007", "Total Commodity Output"))]
-  
-  Make <- Make[c(comswithprimaryindustries,indwithnoprimarycom), comswithprimaryindustries]
-  
-  #Can run this check but it will fail at this point because we added indwithnoprimarycom back to rows
-  #useeior:::checkNamesandOrdering(colnames(Make),rownames(Make),"")
-  
-  #set diagonal to 0
-  diag(Make) <- 0
-  
-  #return sum all values
-  return(Make)
-}
+source('4-BeforevAfterRedef/Functions.R')
 
 
 calculateOffDiagonalCommodityProductioninMakeBeforeandAfter <- function(m) {
   l <- list()
-  if(startsWith(m,"Detail")) {
-    tot_row <- "T007"
-    tot_col <- "T008"
-  } else {
-    tot_row <- "Total Commodity Output"
-    tot_col <- "Total Industry Output"
-  }
-  
-  V_b <- as.matrix(get(paste0(m,"_BeforeRedef_17sch")))
-  q <- V_b[tot_row,tot_col]
-  
-  V_b_off <- getOffDiagonalMake(V_b)
-  V_a <- as.matrix(get(paste0(m,"_AfterRedef_17sch")))
-  V_a_off <- getOffDiagonalMake(V_a)
+
   
   l[["v_b_off"]] <- V_b_off
   l[["v_a_off"]] <- V_a_off
@@ -60,6 +29,23 @@ vs <- c("Detail_Make_2017","Summary_Make_2017","Summary_Make_2018","Summary_Make
 
 q_off_diag_percent <- list()
 for(v in vs) {
+
+  if(startsWith(v,"Detail")) {
+    tot_row <- "T007"
+    tot_col <- "T008"
+  } else {
+    tot_row <- "Total Commodity Output"
+    tot_col <- "Total Industry Output"
+  }
+  
+  V_b <- as.matrix(get(paste0(m,"_BeforeRedef_17sch")))
+  q <- V_b[tot_row,tot_col]
+  
+  V_b_off <- getOffDiagonalMake(V_b)
+  V_a <- as.matrix(get(paste0(m,"_AfterRedef_17sch")))
+  V_a_off <- getOffDiagonalMake(V_a)
+
+
   result_list <- calculateOffDiagonalCommodityProductioninMakeBeforeandAfter(v)
   q_off_diag_percent[[v]] <- result_list[["per_off_diag_output"]]
 }
