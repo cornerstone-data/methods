@@ -101,11 +101,15 @@ for(u in U_tables) {
   results_by_table [[u]] <- U_ratios
   df <- U_ratios[1:top_diffs_num,1:2]
   colnames(df) <- paste(u,"_",colnames(df), sep = "")
+  df[" "] <- "" #add an empty column between models for readability
 
+  # Append first ten rows and first 2 cols of every Use table
   if(length(top_diffs) == 0){
     top_diffs <- df
+  } else{
+    top_diffs <- cbind(top_diffs, df) 
   }
-  top_diffs <- cbind(top_diffs, df) # Append first ten rows and first 2 cols of every Use table
+
   
 
 }
