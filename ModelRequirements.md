@@ -4,14 +4,14 @@
 
 ### US National Component
 
-[!IMPORTANT]
-Assumption: US model will be derived using current methods from USEEIO v2 and/or CEDA 2026 without major methodological or data source nuance
+>[!IMPORTANT]
+> US model will be derived using current methods from USEEIO v2 and/or CEDA 2026 without major methodological or data source nuance
 
 - `>= 400 commodities, using the BEA schema with some reclassifications
 - 2012-2023 time series
 
-[!NOTE]
-Assumption: Use 2017 Benchmark tables as the input as these are still expected to be the most recent available in 2026
+> [!NOTE]
+> Plan to use 2017 Benchmark tables from the BEA as the input as these are still expected to be the most recent available in 2026
 
 - Homogenous production functions (input structure) for commodities except when co-production using different industry processes is valid
 - GHG extension with at least as many sectors as the model itself, unique for each model year
