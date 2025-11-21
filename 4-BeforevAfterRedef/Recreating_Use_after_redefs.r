@@ -1,90 +1,6 @@
 
 library(devtools)
 load_all("../useeior")
-# 
-# before <- buildIOModel("Before2017PRO",configpath="4-BeforevAfterRedef/Before2017PRO.yml")
-# after <- buildIOModel("After2017PRO",configpath="4-BeforevAfterRedef/After2017PRO.yml")
-# 
-# ind <- before$Industries
-# 
-# V_b <- before$V
-# V_a <- after$V
-# 
-# U_b <- before$U
-# U_a <- after$U
-# 
-# identical(rownames(U_b),rownames(U_a))
-# identical(colnames(U_b),colnames(U_a))
-# identical(rownames(V_b),rownames(V_a))
-# identical(colnames(V_b),colnames(V_a))
-# 
-# library(reshape2)
-# 
-# 
-# getCoProdDF <- function(V) {
-#     df <- melt(V)
-#     colnames(df) <- c("I","C","value")
-#     df$C <- as.character(df$C)
-#     df$I <- as.character(df$I)
-#     df <- subset(df,df$value > 0)
-#     #Drop non-coproduction
-#     df <- df[df$C != df$I,]
-#     return(df)
-# }
-# 
-# co_b <- getCoProdDF(V_b)
-# co_a <- getCoProdDF(V_a)
-# co <- merge(co_b,co_a,by=c('C','I'),all.x=TRUE)
-# co[is.na(co)] <- 0
-# #keep only values with no change
-# co <- co[co$value.x != co$value.y,]
-# colnames(co) <- c('C','I','value.b','value.a')
-# 
-# co_c_by_ind <- co[,c('C','I')]
-# co_c_by_ind <- merge(co_c_by_ind,before$Commodities[,c("Code_Loc","Name")],by.x="C",by.y="Code_Loc",all.x=TRUE)
-# 
-# 
-# library(dplyr)
-# co_c_by_ind <- co_c_by_ind %>%
-#                group_by(C,Name)  %>%
-#                summarise(inds = paste(I, collapse = ", "))
-# 
-# 
-# write.csv(co_c_by_ind,"co_c_by_ind_DET_PRO_2017.csv",row.names=FALSE)
-# 
-# 
-# source('4-BeforevAfterRedef/Functions.R')
-# 
-# V_b_off <- getOffDiagonalMake(V_b)
-# V_a_off <- getOffDiagonalMake(V_a)
-# 
-# identical(rownames(V_b_off),rownames(V_a_off))
-# identical(colnames(V_b_off),colnames(V_a_off))
-# 
-# # Movement of co-production is diff with V_b_off and V_a_off
-# V_delta <- V_b_off - V_a_off
-# 
-# #Normalize V_delta
-# 
-# 
-# 
-# x_b <- data.frame(before$x)
-# 
-# x_b <- x_b[rownames(V_delta),,drop=FALSE]
-# 
-# identical(rownames(x_b),rownames(V_delta))
-# 
-# #Estimate ration like using commodity mix calculation
-# #Result is commodityxindustry format
-# x_movement_ratios <- useeior:::normalizeIOTransactions(t(V_delta),x_b)
-# 
-# #industry output would need to be transformed by calculating these values from industry output
-# 
-# x_movement_total_fractions <- sort(colSums(x_movement_ratios),decreasing=TRUE)
-# 
-# names(x_movement_total_fractions[which(x_movement_total_fractions > 0.10)])
-# 
-
 library(reshape2)
 
 before <- buildIOModel("Before2017PRO",configpath="4-BeforevAfterRedef/Before2017PRO.yml")
@@ -151,7 +67,7 @@ for(c in 1:length(colnames(V_diff))){   # for each column in V_diff
       if(length(co_prod_indexes) > 1){
         totals <- colSums(U_b[,co_prod_indexes])
         co_prod_input_structures <- sweep(U_b[,co_prod_indexes], 2, totals, FUN = '/')
-        # Get proportial values to reallocate away from the Use table
+        # Get proportional values to reallocate away from the Use table
         co_prod_cols <- sweep(co_prod_input_structures, 2, co_prod_values, FUN = '*')
         
         receiving_vals <- rowSums(co_prod_cols)
@@ -172,12 +88,9 @@ for(c in 1:length(colnames(V_diff))){   # for each column in V_diff
       # Add input values to receiving industry
       U_test[, primary_ind_index] <- U_test[, primary_ind_index] + receiving_vals
       
-      
-      
-      
     }else{
       # if industry received value is 0 that means there was no co-production reallocation and
-      # thus we need not make changes in the use table for this pair of industries 
+      # thus we need not make changes in the use table for this pair of industries, so there should be nothing here
     }
   }  
 
@@ -192,4 +105,23 @@ all.equal(colSums(U_test), colSums(U_a))
 print("Comparing total values in the matirces with sum(sum(U_a)) / sum(sum(U_t)): ")
 sum(sum(U_test)) / sum(sum(U_a))
 
+
+# Print to excel
+U_list <- list()
+U_list[["U_b"]] <- cbind(row.names(U_b),as.data.frame(U_b))
+U_list[["U_a"]] <- cbind(row.names(U_a),as.data.frame(U_a))
+
+U_a_divBy_b <- U_a/U_b
+U_list[["U_a_divBy_b"]] <- cbind(row.names(U_a_divBy_b),as.data.frame(U_a_divBy_b))
+
+
+U_list[["U_test"]] <- cbind(row.names(U_test),as.data.frame(U_test))
+
+
+U_ratios <- U_test/U_a
+U_ratios[is.na(U_ratios)] <- 0
+
+U_list[["U_test_divBy_U_a"]] <- cbind(row.names(U_ratios),as.data.frame(U_ratios))
+
+writexl::write_xlsx(U_list, "4-BeforevAfterRedef/U_test.xlsx", format_headers = FALSE)
 
