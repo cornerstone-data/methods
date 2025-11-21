@@ -25,7 +25,7 @@ df1 <- t(as.data.frame(m1$N))
 df2 <- t(as.data.frame(m2$N))
 
 # Highlight sectors of greater than 1% +/- difference
-merged_df <- merge(df1, df2, by = 0, all = TRUE, suffixes = c("_waste", "_no_waste"))
+merged_df <- merge(df1, df2, by = 0, all = TRUE, suffixes = c("_with_disagg", "_without_disagg"))
 merged_df['comp'] <- round(merged_df[,2] / merged_df[,3],3)
 merged_df <- merged_df[merged_df$comp > 1.01 | merged_df$comp < 0.99, ]
 merged_df <- merged_df[!is.na(merged_df$comp), ]
