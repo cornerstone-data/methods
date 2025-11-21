@@ -1,0 +1,24 @@
+Flowable,Class,SectorProducedBy,Context,FlowAmount,Unit,FlowType,Year,MetaSources,ActivityProducedBy,AttributionSources
+Carbon dioxide,Chemicals,485,emission/air,300000000.0,kg,ELEMENTARY_FLOW,2023,EPA_GHGI_T_3_13.direct_ng,Buses,Direct
+Carbon dioxide,Chemicals,486,emission/air,71300000000.0,kg,ELEMENTARY_FLOW,2023,EPA_GHGI_T_3_13.direct_ng,Pipeline Natural Gas,Direct
+Carbon dioxide,Chemicals,485,emission/air,4199999999.9999995,kg,ELEMENTARY_FLOW,2023,EPA_GHGI_T_3_13.direct_petroleum,Buses,Direct
+Carbon dioxide,Chemicals,481,emission/air,129699999999.99998,kg,ELEMENTARY_FLOW,2023,EPA_GHGI_T_3_13.direct_petroleum,Commercial Aircraft,Direct
+Carbon dioxide,Chemicals,481,emission/air,39200000000.0,kg,ELEMENTARY_FLOW,2023,EPA_GHGI_T_3_13.direct_petroleum,General Aviation Aircraft,Direct
+Carbon dioxide,Chemicals,F010,emission/air,100000000.0,kg,ELEMENTARY_FLOW,2023,EPA_GHGI_T_3_13.direct_petroleum,Light-Duty Trucks - Households,Direct
+Carbon dioxide,Chemicals,484,emission/air,36900000000.0,kg,ELEMENTARY_FLOW,2023,EPA_GHGI_T_3_13.direct_petroleum,Medium- and Heavy-Duty Trucks,Direct
+Carbon dioxide,Chemicals,928,emission/air,11500000000.0,kg,ELEMENTARY_FLOW,2023,EPA_GHGI_T_3_13.direct_petroleum,Military Aircraft,Direct
+Carbon dioxide,Chemicals,F010,emission/air,8600000000.0,kg,ELEMENTARY_FLOW,2023,EPA_GHGI_T_3_13.direct_petroleum,Motorcycles,Direct
+Carbon dioxide,Chemicals,482,emission/air,30900000000.0,kg,ELEMENTARY_FLOW,2023,EPA_GHGI_T_3_13.direct_petroleum,Rail,Direct
+Carbon dioxide,Chemicals,F010,emission/air,13700000000.0,kg,ELEMENTARY_FLOW,2023,EPA_GHGI_T_3_13.direct_petroleum,Recreational Boats,Direct
+Carbon dioxide,Chemicals,483,emission/air,24300000000.0,kg,ELEMENTARY_FLOW,2023,EPA_GHGI_T_3_13.direct_petroleum,Ships and Non-Recreational Boats,Direct
+Carbon dioxide,Chemicals,485,emission/air,3058849426.4064684,kg,ELEMENTARY_FLOW,2023,EPA_GHGI_T_3_13.petroleum_fuels,Buses - Distillate Fuel Oil,BEA_Detail_Use_SUT
+Carbon dioxide,Chemicals,487,emission/air,936690936.7988825,kg,ELEMENTARY_FLOW,2023,EPA_GHGI_T_3_13.petroleum_fuels,Buses - Distillate Fuel Oil,BEA_Detail_Use_SUT
+Carbon dioxide,Chemicals,488,emission/air,936690936.7988825,kg,ELEMENTARY_FLOW,2023,EPA_GHGI_T_3_13.petroleum_fuels,Buses - Distillate Fuel Oil,BEA_Detail_Use_SUT
+Carbon dioxide,Chemicals,S00201,emission/air,14367768699.995766,kg,ELEMENTARY_FLOW,2023,EPA_GHGI_T_3_13.petroleum_fuels,Buses - Distillate Fuel Oil,BEA_Detail_Use_SUT
+Carbon dioxide,Chemicals,492,emission/air,21179841046.547535,kg,ELEMENTARY_FLOW,2023,EPA_GHGI_T_3_13.petroleum_fuels,Light-Duty Trucks,BEA_Detail_Use_SUT
+Carbon dioxide,Chemicals,F010,emission/air,688720158953.4524,kg,ELEMENTARY_FLOW,2023,EPA_GHGI_T_3_13.petroleum_fuels,Light-Duty Trucks,BEA_Detail_Use_SUT
+Carbon dioxide,Chemicals,484,emission/air,271488012155.78598,kg,ELEMENTARY_FLOW,2023,EPA_GHGI_T_3_13.petroleum_fuels,Medium- and Heavy-Duty Trucks - Distillate Fuel Oil,BEA_Detail_Use_SUT
+Carbon dioxide,Chemicals,922,emission/air,109711987844.214,kg,ELEMENTARY_FLOW,2023,EPA_GHGI_T_3_13.petroleum_fuels,Medium- and Heavy-Duty Trucks - Distillate Fuel Oil,BEA_Detail_Use_SUT
+Carbon dioxide,Chemicals,491,emission/air,358118483.79536086,kg,ELEMENTARY_FLOW,2023,EPA_GHGI_T_3_13.petroleum_fuels,Passenger Cars,BEA_Detail_Use_SUT
+Carbon dioxide,Chemicals,922,emission/air,13051227714.081398,kg,ELEMENTARY_FLOW,2023,EPA_GHGI_T_3_13.petroleum_fuels,Passenger Cars,BEA_Detail_Use_SUT
+Carbon dioxide,Chemicals,F010,emission/air,281990653802.1232,kg,ELEMENTARY_FLOW,2023,EPA_GHGI_T_3_13.petroleum_fuels,Passenger Cars,BEA_Detail_Use_SUT
