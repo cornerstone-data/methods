@@ -7,7 +7,7 @@
 >[!IMPORTANT]
 > US model will be derived using current methods from USEEIO v2 and/or CEDA 2026 without major methodological or data source nuance
 
-- `>= 400 commodities, using the BEA schema with some reclassifications
+- \>= 400 commodities, using the BEA schema with some reclassifications
 - 2012-2023 time series
 
 > [!NOTE]
@@ -22,13 +22,11 @@
 - Calculate CO2e using IPCC AR6 GWPs
 - Be useable with import emission factors that are consistent in scope (classification, year, boundaries) and separate clearly domestic and imported requirements in impact calculations
 
+### US State Models
 
-
-
-
-
-
-
-
-
-
+- State-based two region models for 50 states (and potentially D.C.)
+- ~70 commodities, using the BEA summary schema with some reclassifications
+- 2012 - 2023 time series
+- Derived from national BEA summary tables
+- GHG extension with at least as many sectors as the model itself, unique for each model year
+- Calculate CO2e using IPCC AR6 GWPs
