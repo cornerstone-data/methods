@@ -1,0 +1,409 @@
+﻿useeio_code,useeio_name,ceda_code,ceda_name
+1111A0,"Fresh soybeans, canola, flaxseeds, and other oilseeds",1111A0,Oilseed farming
+1111B0,"Fresh wheat, corn, rice, and other grains",1111B0,Grain farming
+111200,"Fresh vegetables, melons, and potatoes",111200,Vegetable and melon farming
+111300,Fresh fruits and tree nuts,111300,Fruit and tree nut farming
+111400,"Greenhouse crops, mushrooms, nurseries, and flowers",111400,"Greenhouse, nursery, and floriculture production"
+111900,"Tobacco, cotton, sugarcane, peanuts, sugar beets, herbs and spices, and other crops",111900,Other crop farming
+112120,Dairies,112120,Dairy cattle and milk production
+1121A0,Cattle ranches and feedlots,1121A0,"Beef cattle ranching and farming, including feedlots and dual-purpose ranching and farming"
+112300,Poultry farms,112300,Poultry and egg production
+112A00,Animal farms and aquaculture ponds (except cattle and poultry),112A00,"Animal production, except cattle and poultry and eggs"
+113000,Timber and raw forest products,113000,Forestry and logging
+114000,Wild-caught fish and game,114000,"Fishing, hunting and trapping"
+115000,Agriculture and forestry support,115000,Support activities for agriculture and forestry
+211000,Unrefined oil and gas,211000,Oil and gas extraction
+212100,Coal,212100,Coal mining
+212230,"Copper, nickel, lead, and zinc",212230,"Copper, nickel, lead, and zinc mining"
+2122A0,"Iron, gold, silver, and other metal ores",2122A0,"Iron, gold, silver, and other metal ore mining"
+212310,Dimensional stone,212310,Stone mining and quarrying
+2123A0,"Sand, gravel, clay, phosphate, other nonmetallic minerals",2123A0,Other nonmetallic mineral mining and quarrying
+213111,Well drilling,213111,Drilling oil and gas wells
+21311A,Other support activities for mining,21311A,Other support activities for mining
+221100,Electricity,221100,"Electric power generation, transmission, and distribution"
+221200,Natural gas,221200,Natural gas distribution
+221300,Drinking water and wastewater treatment,221300,"Water, sewage and other systems"
+233210,Health care buildings,233210,Health care structures
+233262,Schools and vocational buildings,233262,Educational and vocational structures
+230301,Nonresidential building repair and maintanence,230301,Nonresidential maintenance and repair
+230302,Residential building repair and maintanence,230302,Residential maintenance and repair
+2332A0,"Commercial structures, including farm structures",2332A0,Office and commercial structures
+233412,Multifamily homes,233412,Multifamily residential structures
+2334A0,Other residential structures,2334A0,Other residential structures
+233230,Manufacturing buildings,233230,Manufacturing structures
+2332D0,Other nonresidential structures,2332D0,Other nonresidential structures
+233240,Utilities buildings and infrastructure,233240,Power and communication structures
+233411,Single-family homes,233411,Single-family residential structures
+2332C0,"Highways, streets, and bridges",2332C0,Transportation structures and highways and streets
+321100,Lumber and treated lumber,321100,Sawmills and wood preservation
+321200,Plywood and veneer,321200,"Veneer, plywood, and engineered wood product manufacturing"
+321910,"Wooden windows, door, and flooring",321910,Millwork
+3219A0,"Veneer, plywood, and engineered wood",3219A0,All other wood product manufacturing
+327100,Clay and ceramic products,327100,Clay product and refractory manufacturing
+327200,Glass and glass products,327200,Glass and glass product manufacturing
+327310,Cement,327310,Cement manufacturing
+327320,Ready-mix concrete,327320,Ready-mix concrete manufacturing
+327330,"Concrete pipe, bricks, and blocks",327330,"Concrete pipe, brick, and block manufacturing"
+327390,Other concrete products,327390,Other concrete product manufacturing
+327400,Lime and gypsum products,327400,Lime and gypsum product manufacturing
+327910,Abrasive products,327910,Abrasive product manufacturing
+327991,Cut stone and stone products,327991,Cut stone and stone product manufacturing
+327992,Ground or treated minerals and earth,327992,Ground or treated mineral and earth manufacturing
+327993,Mineral wool,327993,Mineral wool manufacturing
+327999,Other nonmetallic mineral products,327999,Miscellaneous nonmetallic mineral products
+331110,"Primary iron, steel, and ferroalloy products",331110,Iron and steel mills and ferroalloy manufacturing
+331200,Secondary steel products,331200,Steel product manufacturing from purchased steel
+331313,Primary aluminum,331313,Aluminum product manufacturing from purchased aluminum + Alumina refining and primary aluminum production + Secondary smelting and alloying of aluminum
+33131B,Secondary aluminum,331410,Nonferrous Metal (except Aluminum) Smelting and Refining
+331410,"Copper, gold and silver concentrates",331420,"Copper rolling, drawing, extruding and alloying"
+331420,Secondary copper products,331490,"Nonferrous metal (except copper and aluminum) rolling, drawing, extruding and alloying"
+331490,Other secondary nonferrous metal products,331510,Ferrous metal foundries
+331510,Cast iron and steel,331520,Nonferrous metal foundries
+331520,Nonferrous metal casts,332114,Custom roll forming
+332114,Custom metal rolls,33211A,"All other forging, stamping, and sintering"
+33211A,"All other forging, stamping, and sintering",332119,"Metal crown, closure, and other metal stamping (except automotive)"
+332119,"Lids, jars, bottle caps, other metal closures and crowns",332200,Cutlery and handtool manufacturing
+332200,Cutlery and handtools,332310,Plate work and fabricated structural product manufacturing
+332310,Metal structural products,332320,Ornamental and architectural metal products manufacturing
+332320,"Metal windows, doors, and architectural products",332410,Power boiler and heat exchanger manufacturing
+332410,Power boilers and heat exchangers,332420,Metal tank (heavy gauge) manufacturing
+332420,Heavy gauge metal tanks,332430,"Metal can, box, and other metal container (light gauge) manufacturing"
+332430,"Light gauge metal cans, boxes, and containers",332500,Hardware manufacturing
+332500,"Metal hinges, keys, lock, and other hardware",332600,Spring and wire product manufacturing
+332600,Springs and wires,332710,Machine shops
+332710,Machine shops,332720,"Turned product and screw, nut, and bolt manufacturing"
+332720,"Screws, nuts, and bolts",332800,"Coating, engraving, heat treating and allied activities"
+332800,"Metal coatings, engravings, and heat treatments",332913,Plumbing fixture fitting and trim manufacturing
+332913,"Metal plumbing drains, faucets, valves, and other fittings",33291A,Valve and fittings other than plumbing
+33291A,Valve and fittings (except for plumbing),332991,Ball and roller bearing manufacturing
+332991,Ball and roller bearings,332996,Fabricated pipe and pipe fitting manufacturing
+332996,Fabricated pipe and pipe fittings,33299A,"Ammunition, arms, ordnance, and accessories manufacturing"
+33299A,"Ammunition, arms, ordnance, and related accessories",332999,Other fabricated metal manufacturing
+332999,Misc. fabricated metal products,333111,Farm machinery and equipment manufacturing
+333111,Farm machinery and equipment,333112,Lawn and garden equipment manufacturing
+333112,Lawn and garden equipment,333120,Construction machinery manufacturing
+333120,Construction machinery,333130,Mining and oil and gas field machinery manufacturing
+333130,Mining and oil/gas field machinery,333242,Semiconductor machinery manufacturing
+333242,Semiconductor machinery,33329A,Other industrial machinery manufacturing
+33329A,"Machinery for the paper, textile, food or other industries (except semiconductor machinery)",333314,Optical instrument and lens manufacturing
+333314,Optical instruments and lenses,333316,Photographic and photocopying equipment manufacturing
+333316,Photography and photocopying equipment,333318,Other commercial and service industry machinery manufacturing
+333318,Other commercial and service industry machinery,333414,Heating equipment (except warm air furnaces) manufacturing
+333414,Heating equipment other than warm air furnaces,333415,"Air conditioning, refrigeration, and warm air heating equipment manufacturing"
+333415,"Air conditioning, refrigeration, and warm air heating equipment",333413,Industrial and commercial fan and blower and air purification equipment manufacturing
+333413,Air purification and ventilation equipment,333511,Industrial mold manufacturing
+333511,Industrial molds,333514,"Special tool, die, jig, and fixture manufacturing"
+333514,"Special tools, dies, jigs, and fixtures",333517,Machine tool manufacturing
+333517,Metal cutting and forming machine tools,33351B,"Cutting and machine tool accessory, rolling mill, and other metalworking machinery manufacturing"
+33351B,"Cutting and machine tool accessory, rolling mill, and other metalworking machines",333611,Turbine and turbine generator set units manufacturing
+333611,Turbines and turbine generator sets,333612,"Speed changer, industrial high-speed drive, and gear manufacturing"
+333612,"Speed changers, industrial high-speed drives, and gears",333613,Mechanical power transmission equipment manufacturing
+333613,Mechanical power transmission equipment,333618,Other engine equipment manufacturing
+333618,Other engine equipment,333912,Air and gas compressor manufacturing
+333912,Air and gas compressors,333914,"Measuring, dispensing, and other pumping equipment manufacturing"
+333914,Pumps and pumping equipment,333920,Material handling equipment manufacturing
+333920,Material handling equipment,333991,Power-driven handtool manufacturing
+333991,Power tools,333993,Packaging machinery manufacturing
+333993,Packaging machinery,333994,Industrial process furnace and oven manufacturing
+333994,Industrial process furnaces and ovens,33399A,Other general purpose machinery manufacturing
+33399A,"Welding and Soldering Equipment, Scales and Balances, and other general purpose machinery",33399B,Fluid power process machinery
+33399B,"Hydraulic pumps, motors, cylinders and actuators",334111,Electronic computer manufacturing
+334111,Computers,334112,Computer storage device manufacturing
+334112,Computer storage device readers,334118,Computer terminals and other computer peripheral equipment manufacturing
+334118,Computer terminals and other computer peripheral equipment,334210,Telephone apparatus manufacturing
+334210,Telephones,334220,Broadcast and wireless communications equipment
+334220,Wireless communications,334290,Other communications equipment manufacturing
+334290,Communications equipment,334413,Semiconductor and related device manufacturing
+334413,Semiconductors,334418,Printed circuit assembly (electronic assembly) manufacturing
+334418,Printed circuit and electronic assembly,33441A,Other electronic component manufacturing
+33441A,"Electronic capacitors, resistors, coils, transformers, connectors and other components (except  semiconductors and printed circuit assemblies)",334510,Electromedical and electrotherapeutic apparatus manufacturing
+334510,Electromedical appartuses,334511,"Search, detection, and navigation instruments manufacturing"
+334511,Navigation instruments,334512,Automatic environmental control manufacturing
+334512,Automatic controls for HVAC and refrigeration equipment,334513,Industrial process variable instruments manufacturing
+334513,Industrial process variable instruments,334514,Totalizing fluid meter and counting device manufacturing
+334514,Fluid meters and counting devices,334515,Electricity and signal testing instruments manufacturing
+334515,Signal testing instruments,334516,Analytical laboratory instrument manufacturing
+334516,Analytical laboratory instruments,334517,Irradiation apparatus manufacturing
+334517,Irradiation apparatuses,33451A,"Watch, clock, and other measuring and controlling device manufacturing"
+33451A,"Watches, clocks, and other measuring and controlling devices",334300,Audio and video equipment manufacturing
+334300,Audio and video equipment,334610,Manufacturing and reproducing magnetic and optical media
+334610,"External hard drives, CDs, other storage media",335110,Electric lamp bulb and part manufacturing
+335110,Light bulbs,335120,Lighting fixture manufacturing
+335120,Light fixtures,335210,Small electrical appliance manufacturing
+335210,Small electrical appliances,335221,Household cooking appliance manufacturing
+335220,Major home appliances,335222,Household refrigerator and home freezer manufacturing
+335311,Specialty transformers,335224,Household laundry equipment manufacturing
+335312,Motors and generators,335228,Other major household appliance manufacturing
+335313,Switchgear and switchboards,335311,"Power, distribution, and specialty transformer manufacturing"
+335314,Relay and industrial controls,335312,Motor and generator manufacturing
+335911,Storage batteries,335313,Switchgear and switchboard apparatus manufacturing
+335912,Primary batteries,335314,Relay and industrial control manufacturing
+335920,Communication and energy wire and cable,335911,Storage battery manufacturing
+335930,Wiring devices,335912,Primary battery manufacturing
+335991,Carbon and graphite products,335920,Communication and energy wire and cable manufacturing
+335999,Other miscellaneous electrical equipment and components,335930,Wiring device manufacturing
+336111,Automobiles,335991,Carbon and graphite product manufacturing
+336112,"Pickup trucks, vans, and SUVs",335999,All other miscellaneous electrical equipment and component manufacturing
+336120,Heavy duty trucks,336111,Automobile manufacturing
+336211,Vehicle bodies,336112,Light truck and utility vehicle manufacturing
+336212,Truck trailers,336120,Heavy duty truck manufacturing
+336213,Motor homes,336211,Motor vehicle body manufacturing
+336214,Travel trailer and campers,336212,Truck trailer manufacturing
+336310,Vehicle engines and engine parts,336213,Motor home manufacturing
+336320,Vehicle electrical and electronic equipment,336214,Travel trailer and camper manufacturing
+336350,Transmission and power train parts,336310,Motor vehicle gasoline engine and engine parts manufacturing
+336360,Vehicle seating and interior trim (upholstery),336320,Motor vehicle electrical and electronic equipment manufacturing
+336370,Vehicle metal stamping,336350,Motor vehicle transmission and power train parts manufacturing
+336390,Other vehicle parts,336360,Motor vehicle seating and interior trim manufacturing
+3363A0,"Motor vehicle steering, suspension components (except spring), and brake systems",336370,Motor vehicle metal stamping
+336411,Aircraft,336390,Other Motor Vehicle Parts Manufacturing
+336412,Aircraft engines and parts,3363A0,"Motor vehicle steering, suspension component (except spring), and brake systems manufacturing"
+336413,Other aircraft parts,336411,Aircraft manufacturing
+336414,Guided missiles and space vehicles,336412,Aircraft engine and engine parts manufacturing
+33641A,Propulsion units and parts for space vehicles and guided missiles,336413,Other aircraft parts and auxiliary equipment manufacturing
+336500,Railroad rolling stock,336414,Guided missile and space vehicle manufacturing
+336611,Ships and ship repair,33641A,Propulsion units and parts for space vehicles and guided missiles
+336612,Boats,336500,Railroad rolling stock manufacturing
+336991,"Motorcycle, bicycle, and parts",336611,Ship building and repairing
+336992,Military armored vehicles and tanks,336612,Boat building
+336999,Other transportation equipment,336991,"Motorcycle, bicycle, and parts manufacturing"
+337110,Wood kitchen cabinets and countertops,336992,"Military armored vehicle, tank, and tank component manufacturing"
+337121,Home furniture - upholstered,336999,All other transportation equipment manufacturing
+337122,"Home furniture - wood, nonupholstered",337110,Wood kitchen cabinet and countertop manufacturing
+337127,Institutional furniture,337121,Upholstered household furniture manufacturing
+33712N,"Home furniture - Cabinets and non-wood, nonupholstered",337122,Nonupholstered wood household furniture manufacturing
+337215,Shelving and lockers,337127,Institutional furniture manufacturing
+33721A,Office furniture and custom architectural woodwork and millwork,33712N,Other household nonupholstered furniture
+337900,"Mattresses, blinds and shades",337215,"Showcase, partition, shelving, and locker manufacturing"
+339112,Surgical and medical instruments,33721A,Office furniture and custom architectural woodwork and millwork manufacturing
+339113,Surgical appliance and supplies,337900,Other furniture related product manufacturing
+339114,Dental equipment and supplies,339112,Surgical and medical instrument manufacturing
+339115,Ophthalmic goods,339113,Surgical appliance and supplies manufacturing
+339116,Dental laboratories,339114,Dental equipment and supplies manufacturing
+339910,Jewelry and silverware,339115,Ophthalmic goods manufacturing
+339920,Sporting and athletic goods,339116,Dental laboratories
+339930,"Dolls, toys, and games",339910,Jewelry and silverware manufacturing
+339940,Office supplies (not paper),339920,Sporting and athletic goods manufacturing
+339950,Signs,339930,"Doll, toy, and game manufacturing"
+339990,"Gaskets, seals, musical instruments, fasteners, brooms, brushes, mop and other misc. goods",339940,Office supplies (except paper) manufacturing
+311111,Dog and cat food,339950,Sign manufacturing
+311119,Other animal food,339990,All other miscellaneous manufacturing
+311210,Flours and malts,311111,Dog and cat food manufacturing
+311221,Corn products,311119,Other animal food manufacturing
+311225,"Refined vegetable, olive, and seed oils",311210,Flour milling and malt manufacturing
+311224,Vegetable oils and by-products,311221,Wet corn milling
+311230,Breakfast cereals,311225,Fats and oils refining and blending
+311300,"Sugar, candy, and chocolate",311224,Soybean and other oilseed processing
+311410,Frozen food,311230,Breakfast cereal manufacturing
+311420,Fruit and vegetable preservation,311300,Sugar and confectionery product manufacturing
+311513,Cheese,311410,Frozen food manufacturing
+311514,"Dry, condensed, and evaporated dairy",311420,"Fruit and vegetable canning, pickling, and drying"
+31151A,Fluid milk and butter,311513,Cheese manufacturing
+311520,Ice cream and frozen desserts,311514,"Dry, condensed, and evaporated dairy product manufacturing"
+311615,Packaged poultry,31151A,Fluid milk and butter manufacturing
+31161A,Packaged meat (except poultry),311520,Ice cream and frozen dessert manufacturing
+311700,Seafood,311615,Poultry processing
+311810,Bread and other baked goods,31161A,"Animal (except poultry) slaughtering, rendering, and processing"
+3118A0,"Cookies, crackers, pastas, and tortillas",311700,Seafood product preparation and packaging
+311910,Snack foods,311810,Bread and bakery product manufacturing
+311920,Coffee and tea,3118A0,"Cookie, cracker, pasta, and tortilla manufacturing"
+311930,Flavored drink concentrates,311910,Snack food manufacturing
+311940,Seasonings and dressings,311920,Coffee and tea manufacturing
+311990,All other foods,311930,Flavoring syrup and concentrate manufacturing
+312110,"Soft drinks, bottled water, and ice",311940,Seasoning and dressing manufacturing
+312120,Breweries and beer,311990,All other food manufacturing
+312130,Wineries and wine,312110,Soft drink and ice manufacturing
+312140,Distilleries and spirits,312120,Breweries
+312200,Tobacco products,312130,Wineries
+313100,"Fiber, yarn, and thread",312140,Distilleries
+313200,Fabric,312200,Tobacco product manufacturing
+313300,Finished and coated fabric,313100,"Fiber, yarn, and thread mills"
+314110,Carpets and rugs,313200,Fabric mills
+314120,Curtains and linens,313300,Textile and fabric finishing and fabric coating mills
+314900,Other textiles,314110,Carpet and rug mills
+315000,Clothing,314120,Curtain and linen mills
+316000,Leather,314900,Other textile product mills
+322110,Wood pulp,315000,Apparel manufacturing
+322120,Paper,316000,Leather and allied product manufacturing
+322130,Cardboard,322110,Pulp mills
+322210,Cardboard containers,322120,Paper mills
+322220,Paper bags and coated paper,322130,Paperboard mills
+322230,Stationery,322210,Paperboard container manufacturing
+322291,"Sanitary paper (tissues, napkins, diapers, etc.)",322220,Paper Bag and Coated and Treated Paper Manufacturing
+322299,All other converted paper products,322230,Stationery product manufacturing
+323110,"Books, newspapers, magazines, and other print media",322291,Sanitary paper product manufacturing
+323120,Printing support,322299,All other converted paper product manufacturing
+324110,"Gasoline, fuels, and by-products of petroleum refining",323110,Printing
+324121,Asphalt pavement,323120,Support activities for printing
+324122,Asphalt shingles,324110,Petroleum refineries
+324190,Other petroleum and coal products,324121,Asphalt paving mixture and block manufacturing
+325110,Petrochemicals,324122,Asphalt shingle and coating materials manufacturing
+325120,Compressed Gases,324190,Other petroleum and coal products manufacturing
+325130,Synthetic dyes and pigments,325110,Petrochemical manufacturing
+325180,Other basic inorganic chemicals,325120,Industrial gas manufacturing
+325190,Other basic organic chemicals,325130,Synthetic dye and pigment manufacturing
+325211,Plastics,325180,Other Basic Inorganic Chemical Manufacturing
+3252A0,Synthetic rubber and artificial and synthetic fibers,325190,Other basic organic chemical manufacturing
+325411,Medicinal and botanical ingredients,325211,Plastics material and resin manufacturing
+325412,"Pharmaceutical products (pills, powders, solutions, etc.)",3252A0,Synthetic rubber and artificial and synthetic fibers and filaments manufacturing
+325413,"Blood sugar, pregnancy, and other diagnostic test kits",325411,Medicinal and botanical manufacturing
+325414,Vaccines and other biological medical products,325412,Pharmaceutical preparation manufacturing
+325310,Fertilizers,325413,In-vitro diagnostic substance manufacturing
+325320,Pesticides,325414,Biological product (except diagnostic) manufacturing
+325510,Paints and coatings,325310,Fertilizer manufacturing
+325520,Adhesives,325320,Pesticide and other agricultural chemical manufacturing
+325610,Soap and cleaning compounds,325510,Paint and coating manufacturing
+325620,Toiletries,325520,Adhesive manufacturing
+325910,Ink and ink cartridges,325610,Soap and cleaning compound manufacturing
+3259A0,"Chemicals (except basic chemicals, agrichemicals, polymers, paints, pharmaceuticals,soaps, cleaning compounds)",325620,Toilet preparation manufacturing
+326110,"Plastic bags, films, and sheets",325910,Printing ink manufacturing
+326120,"Plastic pipe, fittings, and sausage casings",3259A0,All other chemical product and preparation manufacturing
+326130,Laminated plastic plates and shapes,326110,Plastics packaging materials and unlaminated film and sheet manufacturing
+326140,Polystyrene foam products,326120,"Plastics pipe, pipe fitting, and unlaminated profile shape manufacturing"
+326150,Urethane and other foam products,326130,"Laminated plastics plate, sheet (except packaging), and shape manufacturing"
+326160,Plastic bottles,326140,Polystyrene foam product manufacturing
+326190,Other plastic products,326150,Urethane and other foam product (except polystyrene) manufacturing
+326210,Rubber tires,326160,Plastics bottle manufacturing
+326220,Rubber and plastic belts and hoses,326190,Other plastics product manufacturing
+326290,Other rubber products,326210,Tire manufacturing
+423100,Motor vehicle and motor vehicle parts and supplies,326220,Rubber and plastics hoses and belting manufacturing
+423400,Professional and commercial equipment and supplies,326290,Other rubber product manufacturing
+423600,Household appliances and electrical and electronic goods,423100,Motor vehicle and motor vehicle parts and supplies
+423800,"Machinery, equipment, and supplies",423400,Professional and commercial equipment and supplies
+423A00,Other durable goods merchant wholesalers,423600,Household appliances and electrical and electronic goods 
+424200,Drugs and druggists sundries,423800,"Machinery, equipment, and supplies "
+424400,Grocery and related product wholesalers,423A00,Other durable goods merchant wholesalers
+424700,Petroleum and petroleum products,424200,Drugs and druggists’ sundries
+424A00,Other nondurable goods merchant wholesalers,424400,Grocery and related product wholesalers 
+425000,Wholesale electronic markets and agents and brokers,424700,Petroleum and petroleum products
+4200ID,Customs duties,424A00,Other nondurable goods merchant wholesalers
+441000,Vehicles and parts sales,425000,Wholesale electronic markets and agents and brokers
+445000,Food and beverage stores,4200ID,Customs duties
+452000,General merchandise stores,441000,Motor vehicle and parts dealers
+444000,Building material and garden equipment and supplies dealers,445000,Food and beverage stores
+446000,Health and personal care stores,452000,General merchandise stores
+447000,Gasoline stations,444000,Building material and garden equipment and supplies dealers
+448000,Clothing and clothing accessories stores,446000,Health and personal care stores
+454000,Nonstore retailers,447000,Gasoline stations
+4B0000,Other retail,448000,Clothing and clothing accessories stores
+481000,Air transport,454000,Nonstore retailers
+482000,Rail transport,4B0000,All other retail
+483000,"Water transport (boats, ships, ferries)",481000,Air transportation
+484000,Truck transport,482000,Rail transportation
+485000,Passenger ground transport,483000,Water transportation
+486000,Pipeline transport,484000,Truck transportation
+48A000,Scenic and sightseeing transportation and support activities for transportation,485000,Transit and ground passenger transportation + State and local government passenger transit
+492000,Couriers and messengers,486000,Pipeline transportation
+493000,Warehousing,48A000,Scenic and sightseeing transportation and support activities for transportation
+511110,Newspapers,492000,Couriers and messengers
+511120,Magazines and journals,493000,Warehousing and storage
+511130,Books,511110,Newspaper publishers
+5111A0,"Directory, mailing list, and other publishers",511120,Periodical Publishers
+511200,Software,511130,Book publishers
+512100,Movies and film,5111A0,"Directory, mailing list, and other publishers"
+512200,Sound recording,511200,Software publishers
+515100,Radio and television,512100,Motion picture and video industries
+515200,Cable and subscription programming,512200,Sound recording industries
+517110,Telecommunications,515100,Radio and television broadcasting
+517210,Wireless telecommunications,515200,Cable and other subscription programming
+517A00,"Satellite, telecommunications resellers, and all other telecommunications",517110,Wired telecommunications carriers
+518200,Data processing and hosting,517210,Wireless telecommunications carriers (except satellite)
+519130,Internet publishing and broadcasting,517A00,"Satellite, telecommunications resellers, and all other telecommunications"
+5191A0,"News syndicates, libraries, archives, Internet publishing and all other information services",518200,"Data processing, hosting, and related services"
+522A00,Nondepository credit intermediation and related activities,519130,Internet publishing and broadcasting and Web search portals
+52A000,Monetary authorities and depository credit intermediation,5191A0,"News syndicates, libraries, archives and all other information services"
+523900,"Investment advice, portfolio management, and other financial advising services",522A00,Nondepository credit intermediation and related activities
+523A00,Securities and commodities brokerage and exchanges,52A000,Monetary authorities and depository credit intermediation
+524113,Direct life insurance carriers,523900,Other financial investment activities
+5241XX,"Insurance carriers, except direct life",523A00,Securities and commodity contracts intermediation and brokerage
+524200,Insurance agencies and brokerages,524113,Direct life insurance carriers
+525000,"Funds, trusts, and financial vehicles",5241XX,"Insurance carriers, except direct life"
+531HSO,Owner-occupied housing,524200,"Insurance agencies, brokerages, and related activities"
+531HST,Tenant-occupied housing,525000,"Funds, trusts, and other financial vehicles"
+531ORE,Other real estate,531HSO,Owner-occupied housing
+532100,Vehicle rental and leasing,531HST,Tenant-occupied housing
+532400,Commercial equipment rental,531ORE,Other real estate
+532A00,Consumer goods and general rental centers,532100,Automotive equipment rental and leasing
+533000,Lessors of nonfinancial intangible assets,532400,Commercial and industrial machinery and equipment rental and leasing
+541100,Legal services,532A00,General and consumer goods rental
+541511,Custom computer programming,533000,Lessors of nonfinancial intangible assets
+541512,Computer systems design,541100,Legal services
+54151A,"Other computer related services, including facilities management",541511,Custom computer programming services
+541200,"Accounting, tax preparation, bookkeeping, and payroll",541512,Computer systems design services
+541300,"Architectural, engineering, and related services",54151A,"Other computer related services, including facilities management"
+541610,Management consulting,541200,"Accounting, tax preparation, bookkeeping, and payroll services"
+5416A0,Environmental and other technical consulting services,541300,"Architectural, engineering, and related services"
+541700,Scientific research and development,541610,Management consulting services
+541800,Advertising and public relations,5416A0,Environmental and other technical consulting services
+541400,Specialized design,541700,Scientific research and development services
+541920,Photographers,541800,"Advertising, public relations, and related services"
+541940,Veterinarians,541400,Specialized design services
+5419A0,"Marketing research and all other miscellaneous professional, scientific, and technical services",541920,Photographic services
+550000,Company and enterprise management,541940,Veterinary services
+561300,Employment services,5419A0,"All other miscellaneous professional, scientific, and technical services "
+561700,Buildings and dwellings services,550000,Management of companies and enterprises
+561100,Office administration,561300,Employment services
+561200,Facilities support,561700,Services to buildings and dwellings
+561400,Business support,561100,Office administrative services
+561500,Travel arrangement and reservation,561200,Facilities support services
+561600,Investigation and security,561400,Business support services
+561900,Other support services,561500,Travel arrangement and reservation services
+562111,Solid waste collection,561600,Investigation and security services
+562HAZ,Hazardous waste collection treatment and disposal,561900,Other support services
+562212,Solid waste landfilling,562000,Waste management and remediation services
+562213,Solid waste combustors and incinerators,611100,Elementary and secondary schools
+562910,Remediation services,611A00,"Junior colleges, colleges, universities, and professional schools"
+562920,Material separation/recovery facilities,611B00,Other educational services
+562OTH,Other waste collection and treatment services,621100,Offices of physicians
+611100,Elementary and secondary schools,621200,Offices of dentists
+611A00,"Colleges, universities, junior colleges, and professional schools",621300,Offices of other health practitioners
+611B00,Other educational services,621400,Outpatient care centers
+621100,Physicians,621500,Medical and diagnostic laboratories
+621200,Dentists,621600,Home health care services
+621300,Healthcare practitioners (except physicians and dentists),621900,Other ambulatory health care services
+621400,Outpatient healthcare,622000,Hospitals
+621500,Medical laboratories,623A00,Nursing and community care facilities
+621600,Home healthcare,623B00,"Residential mental health, substance abuse, and other residential care facilities"
+621900,Ambulances,624100,Individual and family services
+622000,Hospitals,624400,Child day care services
+623A00,Nursing and community care facilities,624A00,"Community food, housing, and other relief services, including rehabilitation services"
+623B00,"Residential mental retardation, mental health, substance abuse and other facilities",711100,Performing arts companies
+624100,Individual and family services,711200,Spectator sports
+624400,Child day care,711500,"Independent artists, writers, and performers"
+624A00,"Community food, housing, and other relief services, including rehabilitation services",711A00,Promoters of performing arts and sports and agents for public figures
+711100,Performances,712000,"Museums, historical sites, zoos, and parks"
+711200,Sports,713100,Amusement parks and arcades
+711500,"Independent artists, writers, and performers",713200,Gambling industries (except casino hotels)
+711A00,Promoters and agents,713900,Other amusement and recreation industries
+712000,"Museums, historical sites, zoos, and parks",721000,Accommodation
+713100,Amusement parks and arcades,722110,Full-service restaurants
+713200,Gambling establishments (except casino hotels),722211,Limited-service restaurants
+713900,"Golf courses, marinas, ski resorts, fitness and other rec centers and industries",722A00,All other food and drinking places
+721000,Hotels and campgrounds,811100,Automotive repair and maintenance
+722110,Full-service restaurants,811200,Electronic and precision equipment repair and maintenance
+722211,Limited-service restaurants,811300,Commercial and industrial machinery and equipment repair and maintenance
+722A00,All other food and drinking places,811400,Personal and household goods repair and maintenance
+811100,Vehicle repair,812100,Personal care services
+811200,Electronic  equipment repair and maintenance,812200,Death care services
+811300,Commercial machinery repair,812300,Dry-cleaning and laundry services
+811400,Household goods repair,812900,Other personal services
+812100,Salons and barber shops,813100,Religious organizations
+812200,Funerary services,813A00,"Grantmaking, giving, and social advocacy organizations"
+812300,Dry-cleaning and laundry,813B00,"Civic, social, professional, and similar organizations"
+812900,"Pet care, photofinishing, parking and other sundry services",814000,Private households
+813100,Religious organizations,S00500,Federal general government (defense)
+813A00,"Grantmaking, giving, and social advocacy organizations",S00600,Federal general government (nondefense)
+813B00,"Civic, social, professional, and similar organizations",491000,Postal service
+814000,Household employees,S00102,Other federal government enterprises
+S00500,Federal general government (defense),GSLGE,State and local government educational services
+S00600,Federal general government (nondefense),GSLGH,State and local government hospitals and health services
+491000,Postal service,GSLGO,State and local government other services
+S00102,Other federal government enterprises,S00203,Other state and local government enterprises
+GSLGE,State and local government educational services,,
+GSLGH,State and local government hospitals and health services,,
+GSLGO,State and local government other services,,
+S00203,Other state and local government enterprises,,
+S00401,Scrap,,
+S00402,Used and secondhand goods,,
+S00300,Noncomparable imports,,
+S00900,Rest of the world adjustment,,
