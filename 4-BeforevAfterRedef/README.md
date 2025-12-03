@@ -1,12 +1,15 @@
-# methods
-Repository for discussion of methodology issues and providing quantitative support
-
-# Guidelines
-Quantitive support files including code and data should be associated with an issue. 
-For review create a branch and initiate a PR to pull into main and assign a reviewer. 
-Once approved pull in and make sure to link to it in the appropriate discussion.
-
 # Results
+[EvaluateOffDiagonalProductioninMakeBeforeandAfter.R]() compares how much co-production is in the Before vs the After Redefinitions tables, using 2017 Detail and 2017-2022 Summary tables.
+
+||	Before (%) |	After (%)|
+|---|---|---|
+|Detail_Make_2017|	9.4|	5.5|
+|Summary_Make_2017|	7.6|	3.8|
+|Summary_Make_2018|	7.6|	3.8|
+|Summary_Make_2019|	7.6|  3.8|
+|Summary_Make_2020|	7.5|	3.8|
+|Summary_Make_2021|	7.6|	3.8|
+|Summary_Make_2022|	7.7|	3.8|
 
 ## Determining where co-production is moved in Detailed 2017 PRO Make table
 
@@ -156,3 +159,4 @@ Commodity | Industries with Co-Production Moved to Primary Industry in After Red
 812300/US | 721000/US
 812900/US | 446000/US,   4B0000/US, 532A00/US, 541940/US, 711200/US, 712000/US, 713100/US, 713900/US,   721000/US, GSLGE/US, GSLGO/US
 S00102/US | S00600/US
+=======
