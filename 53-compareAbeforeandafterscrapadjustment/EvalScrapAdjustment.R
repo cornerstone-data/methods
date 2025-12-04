@@ -64,6 +64,13 @@ identical(colnames(A_no_scrap),colnames(A_adj))
 A_diff <- A_no_scrap - A_adj
 write.csv(A_diff,"A_diff.csv")
 
+## Visualize the A_no_scrap and A_adj matrices as x-y scatter plot, and save as PNG
+png("A_comparison_plot.png", width=800, height=800)
+plot(as.vector(A_no_scrap), as.vector(A_adj),
+     xlab="A_no_scrap", ylab="A_adj", main="A_no_scrap vs A_adj")
+abline(0, 1, col="grey")
+dev.off()
+
 
 #### General inspection of Use table with 
 
