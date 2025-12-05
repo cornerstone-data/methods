@@ -61,14 +61,31 @@ write.csv(A_int_tot_comp,"A_int_tot_comp.csv")
 A_no_scrap <- m$A[-which(rownames(m$A) %in% 'S00401/US'),-which(colnames(m$A) %in% 'S00401/US')]
 identical(rownames(A_no_scrap),rownames(A_adj))
 identical(colnames(A_no_scrap),colnames(A_adj))
-A_diff <- A_no_scrap - A_adj
-write.csv(A_diff,"A_diff.csv")
+
+#A_adj always has great req because scrap requirement was removed causing others to increas 
+A_diff <- A_adj - A_no_scrap 
+
+A_diff_totals_by_com <- sort(colSums(A_diff),decreasing = TRUE) 
+
+#Get cells with greatest 1% of changes
+threshold <- quantile(A_diff, probs = 0.99)
+indices_above_threshold <- which(A_diff > threshold, arr.ind = TRUE)
+A_diff_changes <- data.frame(input=rownames(A_diff)[indices_above_threshold[,1]],
+                             output=colnames(A_diff)[indices_above_threshold[,2]],
+                             value=A_diff[indices_above_threshold]
+)   
+
+A_diff_top_changes <- A_diff_changes[order(A_diff_changes$value, decreasing=TRUE),]
+
+write.csv(A_diff_top_changes,"A_diff_top_changes.csv")
 
 ## Visualize the A_no_scrap and A_adj matrices as x-y scatter plot, and save as PNG
 png("A_comparison_plot.png", width=800, height=800)
-plot(as.vector(A_no_scrap), as.vector(A_adj),
+
+p <- plot(as.vector(A_no_scrap), as.vector(A_adj),
      xlab="A_no_scrap", ylab="A_adj", main="A_no_scrap vs A_adj")
 abline(0, 1, col="grey")
+
 dev.off()
 
 
