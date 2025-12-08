@@ -7,6 +7,9 @@ modelname <- "USEEIOv2.3-GHG"
 m <- initializeModel(modelname)
 m <- loadIOData(m)
 m <- useeior:::buildEconomicMatrices(m)
+m <- loadandbuildSatelliteTables(m)
+m <- loadandbuildIndicators(m) 
+
 
 # Now modify marketshares
 non_scrap_x <- m$x - m$V[,'S00401/US'] 
@@ -89,15 +92,59 @@ abline(0, 1, col="grey")
 dev.off()
 
 
-#### General inspection of Use table with 
+## Test to see if a model with scrap adjustment yields different results and can be validated
 
+#Copy model object to an adjusted model and create needed objects 1 by 1
+m_adj <- m
+m_adj$Commodities <- m_adj$Commodities[-which(m_adj$Commodities$Code_Loc %in% 'S00401/US'),]
+m_adj$V_n <- V_n_adj
+m_adj$A <- A_adj
+m_adj$q <- m$q[-which(names(m$q) %in% 'S00401/US')]
+
+m_adj$TbS <- do.call(rbind,m_adj$SatelliteTables$totals_by_sector)
+# Set common year for flow when more than one year exists
+m_adj$TbS <- setCommonYearforFlow(m_adj$TbS)
+# Generate coefficients 
+m_adj$CbS <- generateCbSfromTbSandModel(m_adj)
+m_adj$B <- createBfromFlowDataandOutput(m_adj)
+m_adj$C <- createCfromFactorsandBflows(m_adj$Indicators$factors,rownames(m_adj$B))
+ # Add direct impact matrix
+m_adj$D <- m_adj$C %*% m_adj$B
+
+m_adj$M <- m_adj$B %*% m_adj$L
+m_adj$N <- m_adj$C %*% m_adj$M
+
+I <- diag(nrow(m_adj$A))
+m_adj$L <- solve(I - m_adj$A)
+
+#Now update m to add EEIO matrices
+m <- constructEEIOMatrices(m)
+
+##Compare N matrices in adjusted and unadjusted models
+N_no_scrap <- m$N[,-which(colnames(m$N) %in% 'S00401/US')]
+N_comp <- data.frame(t(rbind(N_no_scrap,m_adj$N)))
+colnames(N_comp) <- c("N","N_adj")
+N_comp$N_rel_abs_change <- abs(N_comp$N_adj- N_comp$N)/N_comp$N
+
+## Visualize the N matrices as x-y scatter plot, and save as PNG
+png("N_comparison_plot.png", width=800, height=800)
+
+p <- plot(N_comp$N,N_comp$N_adj,
+     xlab="N", ylab="N_adj", main="N vs N_adj")
+abline(0, 1, col="grey")
+
+dev.off()
+
+
+#### General inspection of Use table
 U <- m$U
 coms <- m$Commodities
 ind <- m$Industries
-uses_of_Used <- t(U['S00402/US',])
+uses_of_Used <- t(U['S00402/US',,drop=FALSE])
 colnames(uses_of_Used) <- "Used"
 colSums(uses_of_Used)
-uses_of_Scrap <- t(U['S00401/US',])
+
+uses_of_Scrap <- t(U['S00401/US',,drop=FALSE])
 colnames(uses_of_Scrap) <- "Scrap"
 colSums(uses_of_Scrap)
 
