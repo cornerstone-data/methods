@@ -29,7 +29,7 @@ tmp <- list(m_adj$MultiYearCommodityOutput,
             m_adj$DomesticFinalDemand,
             m_adj$UseTransactions,
             m_adj$DomesticUseTransactions,
-            m_adj$ImportMatrix,
+            m_adj$ImportMatrix
             )
 tmp <- lapply(tmp,FUN=drop_scrap_from_df,axis=1)
 m_adj$MultiYearCommodityOutput <- tmp[[1]]
@@ -39,7 +39,6 @@ m_adj$DomesticFinalDemand <- tmp[[4]]
 m_adj$UseTransactions <- tmp[[5]]
 m_adj$DomesticUseTransactions <- tmp[[6]]
 m_adj$ImportMatrix <- tmp[[7]]
-m_adj$InternationalTradeAdjustment <- tmp[[8]]
 
 #Update Commodities
 m_adj$Commodities <- m_adj$Commodities[-which(m_adj$Commodities$Code_Loc %in% 'S00401/US'),]
@@ -68,6 +67,7 @@ m_adj$CbS <- generateCbSfromTbSandModel(m_adj)
 #Fully build a standard model for reference
 m <- buildModel(modelname)
 
+#Apply scrap adjustment
 # Now modify marketshares for a scrap adjustment
 non_scrap_x <- m$x - m$V[,'S00401/US'] 
 identical(names(m$x),rownames(m$V))
@@ -86,12 +86,13 @@ nsr_matrix <- diag(nsr, length(nsr),length(nsr))
 V_n_adj <- solve(nsr_matrix) %*% V_n_no_scrap
 rownames(V_n_adj) <- rownames(V_n)
 #check that calculation was correct row by row for a couple industries with known non 1 nsrs
-c <- data.frame(cbind(V_n_adj["321910/US",],V_n_no_scrap["321910/US",]/nsr["321910/US"]))
-c$diff <- c[,1] - c[,2]
-sum(c$diff)
-c <- data.frame(cbind(V_n_adj["332119/US",],V_n_no_scrap["332119/US",]/nsr["332119/US"]))
-c$diff <- c[,1] - c[,2]
-sum(c$diff)
+# c <- data.frame(cbind(V_n_adj["321910/US",],V_n_no_scrap["321910/US",]/nsr["321910/US"]))
+# c$diff <- c[,1] - c[,2]
+# sum(c$diff)
+# c <- data.frame(cbind(V_n_adj["332119/US",],V_n_no_scrap["332119/US",]/nsr["332119/US"]))
+# c$diff <- c[,1] - c[,2]
+# sum(c$diff)
+
 
 #Now apply the modified market shares to the Use table. First though remove the scrap row from the Use table
 m_adj$q <- m_adj$CommodityOutput
@@ -102,19 +103,32 @@ m_adj$V_n <- V_n_adj
 m_adj$A <- m_adj$U_n %*% m_adj$V_n
 m_adj$A_d <- m_adj$U_d_n %*% m_adj$V_n
 
+#Commodity mix has to be calculated outside of useeior because industry output can't be used but rather
+#The calculated output as rowsums needs to be used
+#normalizeIOTransactions(t(model$MakeTransactions), model$IndustryOutput)
+m_adj$C_m <- normalizeIOTransactions(t(m_adj$MakeTransactions), rowSums(m_adj$MakeTransactions))
+#Optional test to show tolerance is not exceeded
+# industryoutputfractions <- colSums(C_m)
+# tolerance <- 0.01
+# for (s in industryoutputfractions) {
+#   if (abs(1-s)>tolerance) {
+#     stop("Error in commoditymix")
+#   }
+# }
+
 # Generate model matrices
 m_adj$B <- createBfromFlowDataandOutput(m_adj)
 m_adj$C <- createCfromFactorsandBflows(m_adj$Indicators$factors,rownames(m_adj$B))
  # Add direct impact matrix
 m_adj$D <- m_adj$C %*% m_adj$B
-m_adj$M <- m_adj$B %*% m_adj$L
-m_adj$N <- m_adj$C %*% m_adj$M
+
+#Calculate L for adjusted model
 I <- diag(nrow(m_adj$A))
 m_adj$L <- solve(I - m_adj$A)
 m_adj$L_d <- solve(I - m_adj$A_d)
 
-
-
+m_adj$M <- m_adj$B %*% m_adj$L
+m_adj$N <- m_adj$C %*% m_adj$M
 
 
 ## Compare the total intermediate requirements in the two A matrices
@@ -153,7 +167,7 @@ write.csv(A_diff_top_changes,"A_diff_top_changes.csv")
 ## Visualize the A_no_scrap and A_adj matrices as x-y scatter plot, and save as PNG
 png("A_comparison_plot.png", width=800, height=800)
 
-p <- plot(as.vector(A_no_scrap), as.vector(A_adj),
+p <- plot(as.vector(A_no_scrap), as.vector(m_adj$A),
      xlab="A_no_scrap", ylab="A_adj", main="A_no_scrap vs A_adj")
 abline(0, 1, col="grey")
 
@@ -180,6 +194,59 @@ abline(0, 1, col="grey")
 
 dev.off()
 
+## Try to Validate adjusted model
+
+# Test if adjusted model output can be recalculated
+v <- compareOutputandLeontiefXDemand(m_adj, use_domestic=FALSE)
+v$Failure
+#      rownames variable
+# 399 S00402/US       V1
+# 400 S00300/US       V1
+
+# Test if model output can be recalculated
+v <- compareOutputandLeontiefXDemand(m, use_domestic=FALSE)
+v$Failure
+#      rownames variable
+# 399 S00402/US       V1
+# 400 S00300/US       V1
+
+# Test if adjusted model domestic output can be recalculated
+v <- compareOutputandLeontiefXDemand(m_adj, use_domestic=TRUE)
+v$Failure
+#      rownames variable
+# 399 S00402/US       V1
+# 400 S00300/US       V1
+
+# Test if model domestic output can be recalculated
+v <- compareOutputandLeontiefXDemand(m, use_domestic=TRUE)
+v$Failure
+#      rownames variable
+# 399 S00402/US       V1
+# 400 S00300/US       V1
+
+# Test if adjusted model E can be recalculated
+v <- compareEandLCIResult(m_adj,use_domestic=FALSE,tolerance=0.02)
+v$Failure
+#0
+v$N_Pass
+#[1] 7218
+v <- compareEandLCIResult(m_adj,use_domestic=TRUE,tolerance=0.02)
+v$Failure
+#0
+v$N_Pass
+#[1] 7218
+
+# Compare result to standard model if E can be recalculated
+v <- compareEandLCIResult(m,use_domestic=FALSE,tolerance=0.02)
+v$Failure
+#0
+v$N_Pass
+#[1] 7236
+v <- compareEandLCIResult(m,use_domestic=TRUE,tolerance=0.02)
+v$Failure
+#0
+v$N_Pass
+#[1] 7236
 
 #### General inspection of Use table
 U <- m$U
