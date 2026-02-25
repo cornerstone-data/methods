@@ -1,5 +1,7 @@
 # Model Requirements
 
+All models should include, after model build, all the following matrices and vectors (as defined by [useeior model objects](https://github.com/cornerstone-data/useeior/blob/1565a70b7da2e50ff7ab5fc344fc0ba95f307a8a/format_specs/Model.md)): **A, B, C, D, M, N, U, V, Y, Rho, Phi, Tau, x, q**, for each commodity and region, along with metadata capturing input data, assumptions, and code version used to build the model.
+
 ## Cornerstone v1 Global EEIO
 
 ### US National Component
