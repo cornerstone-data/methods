@@ -1,6 +1,6 @@
 ---
 name: Elec CF production
-overview: Methods record for EIA-anchored G/T/D in production. D0–D15 settled. Discussion
+overview: Methods record for EIA-anchored G/T/D in production. D0–D14 settled (former D15 merged into D0). Discussion
 todos:
   - id: d0-identity
     content: "Settle D0: how purchaser generation / T&D dollars and MWh are built"
@@ -9,7 +9,7 @@ todos:
     content: D0–D9 settled. D8 keeps each purchaser's electricity $; leftover is the residual after generation $ (EIA prices do not reassign leftover $ across classes)
     status: completed
   - id: export-gh-discussion
-    content: "Discussion #88 posted (opening principles + D0–D15 + Phi comments): https://github.com/cornerstone-data/methods/discussions/88"
+    content: "Discussion #88 posted (opening principles + D0–D14 + Phi; former D15 merged into D0): https://github.com/cornerstone-data/methods/discussions/88"
     status: completed
   - id: p0-baseline-snapshot
     content: Record current production (old 3-way + old mixed units) under electricity_disagg_eia/ before replacing code; commit the freeze so old vs new can be compared in one checkout
@@ -48,7 +48,7 @@ todos:
     content: "D14 settled: freeze 2017 UGO T/(T+D) (~5.92%/94.08%) on the 2017 chain and after D6; p numerator stays the 2017 UGO generation share"
     status: completed
   - id: open-exports-d0-class
-    content: "D15 settled: F04000 is its own D0 class (Table 2.14 MWh); four Table 2.2 classes share (eGRID − export MWh); F04000 bill unchanged, leftover via D8"
+    content: "Exports class merged into D0: F04000 = Table 2.14 MWh; four Table 2.2 classes share (eGRID − export MWh); F04000 bill unchanged, leftover via D8. Former D15 is a historical pointer only."
     status: completed
   - id: sef-phi-electricity-children
     content: "Settled: Phi = 1 on 221110/221121/221122 (PRO=PUR, same as Phoebe 221100); other commodities keep their Phi"
@@ -60,7 +60,7 @@ todos:
     content: "Implementation (P6, same PR): rewrite production w_row / Table 8.3 / mixed-units tests + cache lists; retarget or delete production-match test; analysis d_85 stays historical"
     status: pending
   - id: write-code-impl-plan
-    content: "Write a separate code implementation plan that cites this methods record and Discussion #88 (D0–D15); P0 freeze is the first implementation step"
+    content: "Write a separate code implementation plan that cites this methods record and Discussion #88 (D0–D14); P0 freeze is the first implementation step"
     status: pending
 isProject: false
 ---
@@ -69,14 +69,14 @@ isProject: false
 
 Put the diagnostics counterfactual ([write-up](bedrock/analysis/electricity_disagg_diagnostics/output/alternate_eia_anchored_split/eia_anchored_td_markup_counterfactual.md)) into the live Cornerstone electricity path. **Within each end-use class, MWh still follow post-reallocation electricity-purchase dollars.** Using MECS (manufacturing kWh survey) shares inside Industrial is a later add-on.
 
-This file is the **methods record**. It is not the code implementation plan. **D0–D15 are settled.** GitHub discussion: [#88](https://github.com/cornerstone-data/methods/discussions/88) (done). Next: a separate code implementation plan, then **P0** (freeze today’s production) before replacing 3-way code.
+This file is the **methods record**. It is not the code implementation plan. **D0–D14 are settled** (exports as a class live in D0; a former D15 comment is a historical pointer). GitHub discussion: [#88](https://github.com/cornerstone-data/methods/discussions/88) (done). Next: a separate code implementation plan, then **P0** (freeze today’s production) before replacing 3-way code.
 
 ## How to read this file
 
 1. **Settled design** — the production method. Use this as the source of truth.
 2. **Implementation after methods** — files, P0–P6, tests. Not started.
 3. **Methods discussion log** — why each decision was made, including options not chosen. Historical CF numbers (2018 eGRID as a 2017 proxy) stay in the log where they were used; they do not override D12.
-4. **Open questions** — none remaining for this replacement. D15 (exports as a D0 class) is settled.
+4. **Open questions** — none remaining for this replacement. Exports as a D0 class are part of D0.
 
 ## Glossary
 
@@ -93,7 +93,7 @@ This file is the **methods record**. It is not the code implementation plan. **D
 - **EIA Table 2.4:** average retail ¢/kWh by class. **Not used** for leftover dollars (D8) or mixed units (D4).
 - **EIA Table 8.3:** utility expense statistics. Today’s 3-way uses Purchased Power + T/D shares on the Use-table electricity-buys-electricity cell. **Drops out** of the 3×3 under D1/D10. Production / (Production+T+D) is **not** a `p` numerator if UGO is missing.
 - **EIA Table 3.1:** all-sector net generation. Used only to trend eGRID 2016 → 2017 (D12).
-- **EIA Table 2.14:** Canada/Mexico electricity trade (MWh). **Production input for exports (D15):** `F04000` generation MWh = Canada + Mexico exports. **Check** for D11 import MWh (`|F05000| / p`). Not a production input for imports.
+- **EIA Table 2.14:** Canada/Mexico electricity trade (MWh). **Production input for exports (D0):** `F04000` generation MWh = Canada + Mexico exports. **Check** for D11 import MWh (`|F05000| / p`). Not a production input for imports.
 
 **Matrices (EEIO)**
 
@@ -120,8 +120,8 @@ This file is the **methods record**. It is not the code implementation plan. **D
 
 **This project**
 
-- **Counterfactual (CF):** the diagnostics design in the write-up above. Used 2018 eGRID as a 2017 proxy and absolute EIA **sales** MWh. Production replaces both (four-class shares × (eGRID − 2.14 exports); D12 on the 2017 chain; D15 on `F04000`).
-- **D0, D1, … D15:** methods decisions in the log below.
+- **Counterfactual (CF):** the diagnostics design in the write-up above. Used 2018 eGRID as a 2017 proxy and absolute EIA **sales** MWh. Production replaces both (four-class shares × (eGRID − 2.14 exports); D12 on the 2017 chain; D0 on `F04000`).
+- **D0, D1, … D14:** methods decisions in the log below. Exports as a class are part of D0 (a former D15 comment is historical only).
 - **Off-diagonal 3×3:** generation industry buying transmission or distribution (or the reverse). **Kept at zero** so T/D total EFs do not inherit generation combustion through L.
 
 Names **not** used in this file: “Fork 1 / 2 / 3.” Those were temporary labels for three production-balance rules that now live in D8, D6, and D0.
@@ -141,28 +141,27 @@ Names **not** used in this file: “Fork 1 / 2 / 3.” Those were temporary labe
 
 The eGRID − EIA Total End Use gap is **spread across classes** via identity 2. It is not a leftover parked on one cell, and it is not EIA delivered consumption.
 
-**CF illustration (not the 2017-chain cap):** with 2018 eGRID **4,168 TWh** as a 2017 proxy, four-class MWh **before D15** were Residential **1,487** / Commercial **1,459** / Industrial+Direct Use **1,214** / Transportation **8.1** TWh. Production 2017-chain uses the same four-class **shares** times **(D12 4,039 TWh − Table 2.14 2017 exports)**; `F04000` holds 2.14 (D15). The remaining gap vs Total End Use is smeared on those four classes, not onto exports.
+**CF illustration (not the 2017-chain cap):** with 2018 eGRID **4,168 TWh** as a 2017 proxy, four-class MWh **before peeling exports onto `F04000`** were Residential **1,487** / Commercial **1,459** / Industrial+Direct Use **1,214** / Transportation **8.1** TWh. Production 2017-chain uses the same four-class **shares** times **(D12 4,039 TWh − Table 2.14 2017 exports)**; `F04000` holds 2.14 (D0). The remaining gap vs Total End Use is smeared on those four classes, not onto exports.
 
 **$100 toy** (used below): electricity Use+Y **$100**; Steel **$40**, shop **$30**, households **$30**; generation-dollar share **34%** → generation **$34**, leftover **$66**.
 
-### Decision index (D0–D15)
+### Decision index (D0–D14)
 
-- **D0 — Purchaser rows:** four Table 2.2 classes get shares of Total End Use × **(eGRID − Table 2.14 export MWh)**; Industrial includes Direct Use; `F04000` is D15; `p` numerator = **2017 UGO generation-dollar share** of (inflated) `221100` Use+Y, including at the model year.
+- **D0 — Purchaser rows:** four Table 2.2 classes get shares of Total End Use × **(eGRID − Table 2.14 export MWh)**; Industrial includes Direct Use; `F04000` is the Exports class (Table 2.14 MWh); `F05000` is not a D0 class; `p` numerator = **2017 UGO generation-dollar share** of (inflated) `221100` Use+Y, including at the model year.
 - **D1 — Use 3×3:** `U[G,G]` is the generation industry’s slice of Industrial+Direct Use; off-diagonals 0; do not stack Table 8.3 generation $ on top of those MWh.
 - **D2 — Make:** Make-last. Make diagonal shares follow Use+Y G/T/D totals. No BEA GO on Make.
 - **D3 — Columns + VA:** option 1 with Make-last weights. Fuels 100% → generation. If `VA_G` would go negative, spill other non-fuel to T/D until `VA_G = 0`; else warn and keep negative VA.
-- **D4 — Mixed units:** `c_col = eGRID / q_$`; `c_row = 1/p` (flat). Table 2.4 out of conversion. T&D stay dollars. Domestic Use+Y MWh = eGRID except a class-level nibble if that class’s bills cannot cover `p × class MWh`.
-- **D5 — eGRID minus EIA end use:** no extra Use-row cell. The remaining gap is eGRID − export MWh − Total End Use, smeared across the four Table 2.2 classes. `F04000` holds Table 2.14 only (D15). Leftover **dollars** are D8.
+- **D4 — Mixed units:** `c_col = eGRID / q_$`; `c_row = 1/p` (flat). Table 2.4 out of conversion. T&D stay dollars. Domestic Use+Y MWh = eGRID (class nibble is D8).
+- **D5 — eGRID minus EIA end use:** no extra Use-row cell. The remaining gap is eGRID − export MWh − Total End Use, smeared across the four Table 2.2 classes. `F04000` holds Table 2.14 only (D0). Leftover **dollars** are D8.
 - **D6 — Year scaling:** keep per-child GO-growth (1a) as an intermediate after summary `"22"` inflation. Then re-apply D0 at the model year and **re-run Make-last** so published `q` follows that year’s EIA MWh mix, not BEA gen GO growth. 1a does not last on electricity `q` or purchaser rows.
 - **D7 — E and B:** keep production placement. Combustion on generation, SF₆ on transmission, distribution ~0, `B_gen /= c_col`, x from Make-last V.
-- **D8 — Leftover T&D $:** keep each purchaser’s electricity $ (old `221100` cell). Generation $ from D0; leftover = bill − generation $. If gen $ would exceed a bill, water-fill within class (not a silent nibble). Do not reassign leftover $ using EIA Table 2.4. T vs D of leftover is D14.
+- **D8 — Leftover T&D $:** keep each purchaser’s electricity $ (old `221100` cell). Generation $ from D0; leftover = bill − generation $. If gen $ would exceed a bill, water-fill within class (not a silent nibble). Split leftover with **2017** UGO T/(T+D). `Uimp` is not a D8 bill; `F04000` is a D8 purchaser (D0 Exports class). Do not reassign leftover $ using EIA Table 2.4. D14 is the year-choice record for that freeze.
 - **D9 — Flags:** no new flags. Reallocation unchanged. Existing 3-way-split and mixed-units flags run this method. P0 freeze under `electricity_disagg_eia/` is the old-vs-new comparison.
 - **D10 — Self-use 3×3:** keep the whole `U[221100, 221100]` cell. `U[G,G]` from D1; remainder on `U[T,T]` and `U[D,D]` with 2017 UGO T/(T+D); off-diagonals 0. T/D diagonals are dollars, not extra generation MWh.
 - **D11 — Imports vs eGRID:** domestic generation Use+Y MWh = eGRID = `q`. Extra import MWh = `|Y[221100, F05000]| / p`. Imported `221100` is generation (no leftover split). Intermediate `Uimp` is inside `F05000`, not additional.
 - **D12 — 2017 eGRID proxy:** 2017-chain eGRID = eGRID 2016 × (EIA Table 3.1 2017 / EIA Table 3.1 2016) = **4,039 TWh**. After D6, real eGRID at `model_base_year` (canonical **2024**). Current production mixed units already do that; they do not estimate 2017 eGRID.
-- **D13 — Negative Use/Y cells:** clip to 0 only when forming within-class dollar shares. Do not zero live Use/Y cells. `F05000` is D11; `F04000` is D15. Neither is a Commercial class weight. On a negative bill, generation $ = 0 and leftover may be negative on that cell only.
-- **D14 — Leftover T vs D year:** freeze 2017 UGO T/(T+D) (~**5.92% / 94.08%**) on the 2017 chain and after D6. Same ratio for D8 leftover and D10 self-use remainder. Does not enter `p`.
-- **D15 — Exports as a D0 class:** `F04000` generation MWh = EIA Table 2.14 Canada + Mexico exports. Four Table 2.2 classes share (eGRID − that MWh). Keep the `F04000` dollar bill; leftover via D8. Do not put `F04000` 100% on generation.
+- **D13 — Negative Use/Y cells:** clip to 0 only when forming within-class dollar shares. Do not zero live Use/Y cells. `F05000` and `F04000` out of Table 2.2 weights per D0. On a negative bill, generation $ = 0 and leftover may be negative on that cell only.
+- **D14 — Leftover T vs D year:** freeze 2017 UGO T/(T+D) (~**5.92% / 94.08%**) on the 2017 chain and after D6. Same ratio for D8 leftover and D10 self-use remainder. Does not enter `p`. D8 already uses this freeze.
 - **Phi on electricity children (post-#88):** `221110` / `221121` / `221122` have **Phi = 1** (producer price = purchaser price), same as USEEIO Phoebe on aggregate `221100`. Other commodities keep their usual Phi. Leftover T&D is D8, not a Phi haircut.
 
 ### Production-balance rules
@@ -194,7 +193,7 @@ D14 freezes 2017 T/(T+D) so leftover T vs D uses the same 2017 UGO **structure**
 ```text
 Co-production cleanup (unchanged)
   → 3-way split, commodity rows + final demand first (Make-last needs Use+Y totals):
-        export MWh = EIA Table 2.14 Canada+Mexico (same year as eGRID; D15)
+        export MWh = EIA Table 2.14 Canada+Mexico (same year as eGRID; D0)
         four Table 2.2 classes: shares of Total End Use × (eGRID − export MWh)
         F04000 holds Table 2.14 only (not Commercial; D8 leftover on that bill)
         (2017 chain: eGRID = eGRID_2016 × EIA_3.1_2017/EIA_3.1_2016)
@@ -232,8 +231,8 @@ Co-production cleanup (unchanged)
 
 - Purchaser `Y` is split in a separate cached path (`derive_disagg_Ytot_with_trade` / `disaggregate_electricity_commodity_row_in_y`), not inside `disaggregate_electricity_make_use_va`. D0/D8 must write both Use rows and Y.
 - A small GO identity residual is absorbed into aggregate VA before today’s column split.
-- The end-use map stays the live class assignment. In P2, change `END_USE_MAPPING_REVIEW_STATUS` from DRAFT to adopted for EIA-anchored G/T/D. Hard constraints: `F05000` out of D0 class pools (D11); electricity children → Industrial; `F04000` is the **Exports** class (D15), not Commercial. A broader NAICS/FD mapping review is out of this replacement.
-- Promote Table 2.14 export MWh (`epa_02_14`) into the purchaser builder — **P2** (D15). If EPA lags `model_base_year`, use the latest 2.14 year and log it.
+- The end-use map stays the live class assignment. In P2, change `END_USE_MAPPING_REVIEW_STATUS` from DRAFT to adopted for EIA-anchored G/T/D. Hard constraints: `F05000` out of D0 class pools (D11 extra MWh); electricity children → Industrial; `F04000` is the **Exports** class (D0), not Commercial. A broader NAICS/FD mapping review is out of this replacement.
+- Promote Table 2.14 export MWh (`epa_02_14`) into the purchaser builder — **P2** (D0). If EPA lags `model_base_year`, use the latest 2.14 year and log it.
 - Table 8.3 is hardcoded to 2017 and drops out of the 3×3 under D1.
 - Today’s step order is Make → Use 3×3 → columns/VA → commodity rows/`Y`. Make-last **reverses** Make vs rows: commodity rows + Y first, then Make.
 - Promote Table 2.2 (Direct Use / Total End Use) from diagnostics into production — **P2**.
@@ -245,7 +244,7 @@ Co-production cleanup (unchanged)
 
 Files to change:
 
-- [`electricity_disaggregation.py`](bedrock/transform/eeio/electricity_disaggregation.py) — four-class targets = EIA Total End Use shares × (eGRID − Table 2.14 exports); `F04000` = 2.14 (D15); Industrial+Direct Use includes Direct Use and the generation column; write `U[G,G]` from that allocation; off-diagonals 0. Split Make **after** Use+Y using those row-total shares (not UGO).
+- [`electricity_disaggregation.py`](bedrock/transform/eeio/electricity_disaggregation.py) — four-class targets = EIA Total End Use shares × (eGRID − Table 2.14 exports); `F04000` = 2.14 (D0); Industrial+Direct Use includes Direct Use and the generation column; write `U[G,G]` from that allocation; off-diagonals 0. Split Make **after** Use+Y using those row-total shares (not UGO).
 - [`cornerstone_disagg_pipeline.py`](bedrock/transform/eeio/cornerstone_disagg_pipeline.py) / [`electricity_disaggregation.py`](bedrock/transform/eeio/electricity_disaggregation.py) — mixed units: `c_col = eGRID / q_$`; `c_row = 1/p` for every purchaser (drop Table 2.4 from `electricity_class_row_factors`).
 - [`electricity_end_use_mapping.py`](bedrock/transform/eeio/electricity_end_use_mapping.py) — still maps IO sectors to EIA classes for dollar weights.
 - [`usa_config.py`](bedrock/utils/config/usa_config.py) — **no new flags.** Keep `implement_electricity_reallocation` as today. Point `implement_electricity_disaggregation` at this 3-way-split method. Update `implement_electricity_mixed_units` conversion in place. Existing YAML configs keep the same flag names.
@@ -307,17 +306,17 @@ Footing and reallocation configs are **not** part of the freeze; those paths sta
 
 # Methods discussion log
 
-Living draft. After each settled answer, this section is updated the same turn. Copy into a methods discussion as: opening post (preamble + summary) then one comment per D0–D15 plus Phi.
+Living draft. After each settled answer, this section is updated the same turn. Copy into a methods discussion as: opening post (preamble + summary) then one comment per D0–D14 plus Phi. A former D15 comment is a historical pointer only.
 
 **Title:** Modeling decisions for EIA-anchored electricity G / T / D (production)
 
-**Preamble (opening post):** This discussion lists the modeling decisions for putting the EIA-anchored generation / transmission / distribution path into production (replacement of today’s 3-way split and mixed-units conversion; co-production cleanup unchanged). There are 16 decision points (**D0–D15**). Please comment in that order; earlier decisions constrain later ones.
+**Preamble (opening post):** This discussion lists the modeling decisions for putting the EIA-anchored generation / transmission / distribution path into production (replacement of today’s 3-way split and mixed-units conversion; co-production cleanup unchanged). There are 15 decision points (**D0–D14**). Please comment in that order; earlier decisions constrain later ones.
 
-Guiding MWh totals: **eGRID** for generation output (2017 chain: D12 estimate **4,039 TWh**; model year: that year’s real eGRID); **EIA Table 2.2 shares of Total End Use × (eGRID − Table 2.14 export MWh)** for generation Use+Y by ultimate-customer class (Residential, Commercial, Industrial + Direct Use, Transportation); **Table 2.14** for `F04000` (D15). Within class, MWh follow electricity-purchase dollars. MECS physical shares are deferred. Each purchaser keeps their current electricity **dollar** bill; leftover T&D is that bill minus generation $. `p` numerator is the **2017 UGO generation-dollar share** of `221100` Use+Y, including at the model year. Leftover T vs D is **2017 UGO T/(T+D)**. No new config flags.
+Guiding MWh totals: **eGRID** for generation output (2017 chain: D12 estimate **4,039 TWh**; model year: that year’s real eGRID); **EIA Table 2.2 shares of Total End Use × (eGRID − Table 2.14 export MWh)** for generation Use+Y by ultimate-customer class (Residential, Commercial, Industrial + Direct Use, Transportation); **Table 2.14** for `F04000` (D0). Within class, MWh follow electricity-purchase dollars. MECS physical shares are deferred. Each purchaser keeps their current electricity **dollar** bill; leftover T&D is that bill minus generation $. `p` numerator is the **2017 UGO generation-dollar share** of `221100` Use+Y, including at the model year. Leftover T vs D is **2017 UGO T/(T+D)**. No new config flags.
 
 This is the intended production method, not a diagnostics overlay. Code is not in this discussion; a separate implementation plan will cite these decisions.
 
-**Summary:** see [Decision index](#decision-index-d0d15) above.
+**Summary:** see [Decision index](#decision-index-d0d14) above.
 
 ### D0 — Purchaser generation / T&D package (SETTLED)
 
@@ -327,11 +326,13 @@ This is the intended production method, not a diagnostics overlay. Code is not i
 
 **Original CF resolution (superseded for class totals):** EIA sales MWh by class; dollars within class; `p` = generation Use+Y dollars / eGRID; T&D leftover to Table 2.4 class bills; drop compensating row weights.
 
-**Amendment — EIA shares × (eGRID − exports) (2026-08-20, D15 2026-08-22):** Class targets for the four Table 2.2 classes are **not** EIA sales as published, and **not** shares × full eGRID. They are EIA Table 2.2 **shares of Total End Use** (Residential, Commercial, **Industrial + Direct Use**, Transportation) times **(eGRID − Table 2.14 export MWh)**. `F04000` is its own class (D15). Within each Table 2.2 class, still ∝ electricity-purchase dollars. Households get the scaled Residential total. The generation industry stays in the Industrial+Direct Use dollar pool.
+**Amendment — EIA shares × (eGRID − exports), including Exports class (2026-08-20; exports folded from former D15 2026-08-22):** Class targets for the four Table 2.2 classes are **not** EIA sales as published, and **not** shares × full eGRID. They are EIA Table 2.2 **shares of Total End Use** (Residential, Commercial, **Industrial + Direct Use**, Transportation) times **(eGRID − Table 2.14 export MWh)**. `F04000` is its own class (Exports). `F05000` is not a D0 class. Within each Table 2.2 class, still ∝ electricity-purchase dollars. Households get the scaled Residential total. The generation industry stays in the Industrial+Direct Use dollar pool.
 
-**CF working table** (2018 eGRID **4,168 TWh** as 2017 proxy, **before D15**): Residential **1,487** / Commercial **1,459** / Industrial+Direct Use **1,214** / Transportation **8.1** TWh. Sum = that eGRID. Production **2017-chain** uses the same four-class **shares** times **(D12 eGRID − Table 2.14 2017 exports)** plus `F04000` = 2.14 (D15). Model year uses that year’s EIA 2.2 shares × (that year’s eGRID − that year’s 2.14).
+**CF working table** (2018 eGRID **4,168 TWh** as 2017 proxy, **before peeling exports onto `F04000`**): Residential **1,487** / Commercial **1,459** / Industrial+Direct Use **1,214** / Transportation **8.1** TWh. Sum = that eGRID. Production **2017-chain** uses the same four-class **shares** times **(D12 eGRID − Table 2.14 2017 exports)** plus `F04000` = 2.14 (D0). Model year uses that year’s EIA 2.2 shares × (that year’s eGRID − that year’s 2.14). If EPA lags `model_base_year`, use the latest 2.14 year and log it.
 
-`p` numerator is the **2017 UGO generation-dollar share** of `221100` Use+Y (not a live `221110` row, and not the model-year UGO generation share). Allocated MWh (four classes + `F04000`) sum to eGRID, so generation Use+Y dollars = **p × eGRID** = that UGO slice. The old “sales only” dollar shortfall **closes**. The eGRID − export MWh − Total End Use gap is spread over the **four Table 2.2 classes**, not onto `F04000`.
+`p` numerator is the **2017 UGO generation-dollar share** of `221100` Use+Y (not a live `221110` row, and not the model-year UGO generation share). Allocated MWh (four classes + `F04000`) sum to eGRID, so generation Use+Y dollars = **p × eGRID** = that UGO slice. The old “sales only” dollar shortfall **closes**. The eGRID − export MWh − Total End Use gap is spread over the **four Table 2.2 classes**, not onto `F04000`. Keep the `F04000` dollar bill; leftover on that column is D8. Do not put `F04000` 100% on generation.
+
+**Not chosen for exports:** putting the whole D5 gap on `F04000`; scaling classes by (eGRID − X) but leaving `F04000` inside Commercial; giving `F04000` both a 2.14 target and a Commercial $ share; using `F04000 / p` as EIA exports.
 
 Table 2.4 leftover: D8 keeps each purchaser’s electricity **bill**. Leftover is that bill minus generation $. EIA retail prices do **not** reassign leftover $ across classes. Compensating row weights stay off. Make-table “last” shares stay report-only until D2.
 
@@ -346,9 +347,9 @@ Table 2.4 leftover: D8 keeps each purchaser’s electricity **bill**. Leftover i
 
 **What we give up:** EIA Table 2.2 **sales** MWh by class as the IO numbers (households will exceed published Residential sales). Table 2.4 as a joint identity with those sales. Treating the eGRID − end-use scale-up as delivered consumption (it is not EIA end use). Model-year UGO generation share as the `p` numerator. Putting exports inside Commercial (`F04000 / p` is not EIA exports).
 
-**Implementation:** Port the CF purchaser-row builder, but replace class MWh targets with shares × (eGRID − 2.14 exports), fold Direct Use into Industrial, and assign `F04000` from Table 2.14 (D15). `p` numerator = 2017 UGO generation share of `221100` Use+Y (same share on the inflated total at the model year). Missing UGO is an error; do not fall back to Table 8.3. Do not bring back compensating row weights when the 3-way-split flag is on.
+**Implementation:** Port the CF purchaser-row builder, but replace class MWh targets with shares × (eGRID − 2.14 exports), fold Direct Use into Industrial, and assign `F04000` from Table 2.14 (D0). `p` numerator = 2017 UGO generation share of `221100` Use+Y (same share on the inflated total at the model year). Missing UGO is an error; do not fall back to Table 8.3. Do not bring back compensating row weights when the 3-way-split flag is on.
 
-**Resolution:** Four Table 2.2 class MWh = EIA Total End Use shares × (eGRID − Table 2.14 export MWh); Industrial includes Direct Use; `F04000` is D15; `p` numerator = 2017 UGO generation share of `221100` Use+Y, including at the model year. Drop `w_row`.
+**Resolution:** Four Table 2.2 class MWh = EIA Total End Use shares × (eGRID − Table 2.14 export MWh); Industrial includes Direct Use; `F04000` is the Exports class (generation MWh = Table 2.14 Canada + Mexico); `F05000` is not a D0 class; `p` numerator = 2017 UGO generation share of `221100` Use+Y, including at the model year. Drop `w_row`.
 
 ### D1 — Use 3×3 and generation self-use (SETTLED, revised)
 
@@ -375,7 +376,7 @@ Table 2.4 leftover: D8 keeps each purchaser’s electricity **bill**. Leftover i
 
 ### D2 — Make table (SETTLED)
 
-**Why this matters:** After co-production cleanup, electricity Make is a **diagonal** 3×3, so commodity output `q` and industry gross output `x` share one mix. Today that mix is BEA GO (UGO305). D0/D1/D15 set Use+Y from EIA class MWh plus leftover T&D, not from BEA GO. If Make stayed UGO, T/D use would not match `q`.
+**Why this matters:** After co-production cleanup, electricity Make is a **diagonal** 3×3, so commodity output `q` and industry gross output `x` share one mix. Today that mix is BEA GO (UGO305). D0/D1 set Use+Y from EIA class MWh plus leftover T&D, not from BEA GO. If Make stayed UGO, T/D use would not match `q`.
 
 **Resolution:** **Make-last.** Make **inherits the Use+Y G/T/D split**. Do **not** use BEA GO shares for Make at all.
 
@@ -412,7 +413,7 @@ This is **not** copying the Use 3×3 into Make. `U[G,G]` is generation self-use 
 **Resolution:** **Option 2.** eGRID is a constraint on generation **commodity and industry output** (Make `q`/`x`) **and** on generation **Use+Y** (Use table + Y).
 
 - `c_col = eGRID / q_221110_$` so Make output (and the generation industry column) becomes eGRID.
-- `c_row[j] = 1/p` for every purchaser, with `p` = generation Use+Y dollars / eGRID, so Use+Y MWh = eGRID and class mix from D0 is preserved, except a class-level nibble if that class's bills cannot cover `p × class MWh`.
+- `c_row[j] = 1/p` for every purchaser, with `p` = generation Use+Y dollars / eGRID, so Use+Y MWh = eGRID and class mix from D0 is preserved. Class-level nibble (if a class’s bills cannot cover `p × class MWh`) is D8, not a mixed-units conversion rule.
 - Table 2.4 does **not** enter mixed units. T&D stay dollars. `B` generation is still divided by `c_col`. If `q_$` ≠ Use+Y `$`, the self-use A cell is scaled by `c_row / c_col` ≠ 1. Imports use the same generation-row conversion as domestic.
 - **`y_nab` units:** keep today’s two getters. `derive_cornerstone_y_nab()` (from `derive_cornerstone_Aq_scaled`) stays **dollars**, including generation — that is the published / snapshot series. `derive_cornerstone_y_nab_mixed_units()` (from mixed A/q) is **hybrid**: generation in MWh because `y = q − A q` must match mixed-units A/q. Do not force mixed-units `y_nab[221110]` to dollars.
 
@@ -424,15 +425,15 @@ This is **not** copying the Use 3×3 into Make. `U[G,G]` is generation self-use 
 
 ### D5 — eGRID minus EIA end use (SETTLED)
 
-**Why this matters:** eGRID exceeds EIA Total End Use. That gap is generation that is not EIA end use (losses, plant use, and the part of trade not peeled off as D15 exports). The published CF left the gap off the Use row. D0 already smears **eGRID − export MWh − Total End Use** across the four Table 2.2 classes. `F04000` holds Table 2.14 only (D15). D4 then makes Make output and Use+Y both eGRID in MWh, so there is no MWh hole left to park. Leftover **dollars** for T&D are D8.
+**Why this matters:** eGRID exceeds EIA Total End Use. That gap is generation that is not EIA end use (losses, plant use, and the part of trade not peeled off as D0 exports). The published CF left the gap off the Use row. D0 already smears **eGRID − export MWh − Total End Use** across the four Table 2.2 classes. `F04000` holds Table 2.14 only (D0). D4 then makes Make output and Use+Y both eGRID in MWh, so there is no MWh hole left to park. Leftover **dollars** for T&D are D8.
 
 **CF illustration:** 2018 eGRID **4,168 TWh** minus EIA Total End Use ~**3,864 TWh** ≈ **304 TWh**. **2017-chain production** uses D12 **4,039 TWh**, so the gap vs 2017 Total End Use is smaller. The placement rule does not change.
 
-**Resolution:** **Option 1.** No extra Use-row cell. The remaining gap exists only as D0 scale-up on the four Table 2.2 classes. Scaled class MWh are not EIA delivered consumption. Direct Use stays inside Industrial’s share. Exports are D15 (`F04000` = Table 2.14), not a parked residual.
+**Resolution:** **Option 1.** No extra Use-row cell. The remaining gap exists only as D0 scale-up on the four Table 2.2 classes. Scaled class MWh are not EIA delivered consumption. Direct Use stays inside Industrial’s share. Exports are D0 (`F04000` = Table 2.14), not a parked residual.
 
 **Why this answer:** D0, D1, and D4 already force generation Use+Y and Make output to eGRID. A parked residual would reopen those identities.
 
-**What we give up:** An explicit losses / plant-use generation cell. Exports are on `F04000` via D15, not this cell.
+**What we give up:** An explicit losses / plant-use generation cell. Exports are on `F04000` via D0, not this cell.
 
 ### D6 — Year scaling (SETTLED)
 
@@ -472,7 +473,7 @@ Re-applying D0 at the model year **overwrites electricity Use+Y rows**, so the A
 
 **What we give up:** Lasting per-child BEA GO growth on generation `q` (the 1.62× vs 1.29×/1.33× split). 1a still runs, then is overwritten. D4’s `q_$` ≠ Use+Y `$` case is mostly imports at the model year.
 
-**Implementation:** Leave `rescale_electricity_children_to_detail_GO_growth_A` / `_q` as they are. After year scaling, rebuild purchaser G/T/D from model-year EIA 2.2 × (eGRID − 2.14 exports) and `F04000` = that year’s Table 2.14 (D15; D8 leftover; D14 T vs D; D0 `p` numerator still the 2017 generation-dollar share × inflated `221100`). D8 bills at the model year are the **pre-1a** electricity-row sum (after summary `"22"`, before per-child GO growth), inflated with commodity PI — not post-1a `Adom ⊙ q`. Re-run Make-last from those Use+Y totals; rebuild electricity columns/VA to the new `x`. Then D4. EIA 2.2 / 2.14 year is the model year (if EPA lags, latest 2.14 year and log it). There is no model-year Y matrix: non-import, **non-export** FD bills use 2017 Y column shares × pre-1a electricity `y` total (then PI); **do not** spread `F04000` from those shares — assign D15 MWh on that column; D11 extra import MWh uses the scaled `imports` vector (sum of G+T+D) / `p`, not a 2017 `F05000` share of `y_nab`.
+**Implementation:** Leave `rescale_electricity_children_to_detail_GO_growth_A` / `_q` as they are. After year scaling, rebuild purchaser G/T/D from model-year EIA 2.2 × (eGRID − 2.14 exports) and `F04000` = that year’s Table 2.14 (D0; D8 leftover; D14 T vs D; D0 `p` numerator still the 2017 generation-dollar share × inflated `221100`). D8 bills at the model year are the **pre-1a** electricity-row sum (after summary `"22"`, before per-child GO growth), inflated with commodity PI — not post-1a `Adom ⊙ q`. Re-run Make-last from those Use+Y totals; rebuild electricity columns/VA to the new `x`. Then D4. EIA 2.2 / 2.14 year is the model year (if EPA lags, latest 2.14 year and log it). There is no model-year Y matrix: non-import, **non-export** FD bills use 2017 Y column shares × pre-1a electricity `y` total (then PI); **do not** spread `F04000` from those shares — assign D0 export MWh on that column; D11 extra import MWh uses the scaled `imports` vector (sum of G+T+D) / `p`, not a 2017 `F05000` share of `y_nab`.
 
 ### D7 — Emissions E and B (SETTLED)
 
@@ -524,13 +525,13 @@ If generation $ would exceed that purchaser's bill, water-fill the clipped $ ont
 
 Of leftover, split transmission vs distribution with **2017 UGO T/(T+D)** (~5.92% / 94.08%), including after D6 (D14) — not the full generation/T/D mix, and not model-year UGO T/(T+D). No leftover on the generation industry column (D1).
 
-Keep today’s end-use map (households = Residential; electricity children = Industrial; within-class dollar weights). In P2, set `END_USE_MAPPING_REVIEW_STATUS` to adopted for EIA-anchored G/T/D (no longer DRAFT). `F05000` stays out of D0 class pools even though the dict labels it Commercial. `F04000` is the **Exports** class (D15), not Commercial. Imports are D11 (generation only; extra MWh = `|F05000| / p`). Published `y_nab` stays dollars; mixed-units `y_nab` is hybrid (D4). No extra margin table (Phi on G/T/D is identity — see post-#88 Phi decision). Table 2.4 is not used for leftover dollars (and already not used in mixed units).
+Keep today’s end-use map (households = Residential; electricity children = Industrial; within-class dollar weights). In P2, set `END_USE_MAPPING_REVIEW_STATUS` to adopted for EIA-anchored G/T/D (no longer DRAFT). `F05000` stays out of D0 class pools even though the dict labels it Commercial. `F04000` is the **Exports** class (D0), not Commercial. `Uimp` is 100% generation (not a D8 bill); extra import MWh = `|F05000| / p` is D11. Published `y_nab` stays dollars; mixed-units `y_nab` is hybrid (D4). No extra margin table (Phi on G/T/D is identity — see post-#88 Phi decision). Table 2.4 is not used for leftover dollars (and already not used in mixed units).
 
 **Why this answer:** Industry columns stay balanced without moving VA. End-use classes still differ in generation vs leftover mix via D0. The EIA leftover-dollar pattern is what would have changed bills.
 
 **What we give up:** Leftover dollars by class will not follow EIA Table 2.4 price gaps. All-in ¢/kWh will not equal Table 2.4. T&D dollars will not equal published EIA retail bills. A class-level nibble of D0/eGRID MWh remains possible if that class's bills cannot cover `p × class MWh` (not observed on 2017 IO).
 
-**Implementation:** For each non-electricity purchaser, domestic bill = `Udom` + Y cell of `221100` (**except** `F05000`). Do **not** include `Uimp` in the D8 bill. Assign gen $ by water-filling within class so `gen ≤ bill` and class totals hit D0 when class bills allow. `F04000` is a one-purchaser Exports class (D15): gen $ = `p` × Table 2.14 MWh; leftover = bill − gen; nibble that class only (do not raid Commercial). `td = bill − gen`. Split `td` with **2017** UGO T/(T+D) (D14). Write all `Uimp` `221100` onto the generation row with no leftover (D11). Electricity 3×3: D1 `U[G,G]` plus D10 remainder of self-use on `U[T,T]` / `U[D,D]`. Then Make-last. Drop compensating `w_row`.
+**Implementation:** For each non-electricity purchaser, domestic bill = `Udom` + Y cell of `221100` (**except** `F05000`). Do **not** include `Uimp` in the D8 bill. Assign gen $ by water-filling within class so `gen ≤ bill` and class totals hit D0 when class bills allow. `F04000` is a one-purchaser Exports class (D0): gen $ = `p` × Table 2.14 MWh; leftover = bill − gen; nibble that class only (do not raid Commercial). `td = bill − gen`. Split `td` with **2017** UGO T/(T+D) (year-choice record D14). Write all `Uimp` `221100` onto the generation row with no leftover. Electricity 3×3: D1 `U[G,G]` plus D10 remainder of self-use on `U[T,T]` / `U[D,D]`. Then Make-last. Drop compensating `w_row`.
 
 ### D9 — Config flags (SETTLED)
 
@@ -596,11 +597,11 @@ Figures below used the **CF 2018 eGRID proxy** on 2017 IO dollars. D12 replaces 
 - EIA Table 2.14 **2018** imports = **58.3 TWh** (Canada 51.5 + Mexico 6.8). Option 1 / EIA 2018 = **1.12**.
 - EIA Table 2.14 **2017** imports = **65.7 TWh** (Canada 59.9 + Mexico 5.8). Option 1 / EIA 2017 = **0.99**.
 
-The 2018 gap is mostly **year**: IO $ are 2017, EIA 2018 imports were lower than 2017. Same-year (2017) dollars vs EIA MWh match. Exports do **not** use this import recipe (`F04000 / p` ≈ 73 TWh vs EIA 2018 exports **13.8 TWh**). **D15** assigns Table 2.14 export MWh to `F04000` inside eGRID instead.
+The 2018 gap is mostly **year**: IO $ are 2017, EIA 2018 imports were lower than 2017. Same-year (2017) dollars vs EIA MWh match. Exports do **not** use this import recipe (`F04000 / p` ≈ 73 TWh vs EIA 2018 exports **13.8 TWh**). **D0** assigns Table 2.14 export MWh to `F04000` inside eGRID instead.
 
 **Why this answer:** eGRID is production; imports are extra supply; domestic Make–Use clears; extra MWh line up with EIA Table 2.14 when the dollar year matches.
 
-**What we give up:** “output = all use” in MWh. Four-class MWh shares × (eGRID − exports) describe **domestic ultimate-customer** use of US generation. Export MWh are D15.
+**What we give up:** “output = all use” in MWh. Four-class MWh shares × (eGRID − exports) describe **domestic ultimate-customer** use of US generation. Export MWh are D0.
 
 **Implementation:** D0/D8 eGRID allocation on domestic bills only. Place import `221100` entirely on the generation row (`Uimp` and the `F05000` generation cell). Convert at `1/p`. National check: import generation MWh ≈ `|F05000| / p`.
 
@@ -645,13 +646,13 @@ Not chosen:
 
 **What is actually negative (2017 BEA detail `221100`):** industry Use has **no** negative cells. The only negative Y cell is **`F05000` = −$2.431 B**. After expansion or year scaling, small inventory/scrap negatives can still appear.
 
-**Resolution:** **CF default — clip to 0 only when forming within-class dollar shares.** No purchaser gets negative MWh. Do **not** rewrite live Use/Y cells to 0. Exclude `F05000` from D0 class pools (it is D11 extra import MWh, not Commercial). Exclude `F04000` from Commercial (it is D15 Exports, inside eGRID). On a rare negative industry bill: generation $ = 0, leftover stays that negative cell (D8 leftover ≥ 0 does not bind there). `F05000` is not a D8 purchaser. `F04000` **is** a D8 purchaser (one-purchaser Exports class).
+**Resolution:** **CF default — clip to 0 only when forming within-class dollar shares.** No purchaser gets negative MWh. Do **not** rewrite live Use/Y cells to 0. Exclude `F05000` and `F04000` from Table 2.2 class weights (D0: imports extra; Exports is its own class). On a rare negative industry bill: generation $ = 0, leftover stays that negative cell (D8 leftover ≥ 0 does not bind there). `F05000` is not a D8 purchaser. `F04000` **is** a D8 purchaser (one-purchaser Exports class).
 
 **Why this answer:** Matches the CF weight clip. Keeps `q = Utot + Y`. Does not double-count D11.
 
 **What we give up:** Leftover may be negative on quirk cells. D8’s leftover ≥ 0 is only for positive bills.
 
-**Implementation:** `clip(lower=0)` on the dollar series used for within-class shares (same as CF). Drop `F05000` and `F04000` from Table 2.2 class weights in `build_end_use_map`. Map `F04000` to Exports (D15). Leave Use/Y values unchanged.
+**Implementation:** `clip(lower=0)` on the dollar series used for within-class shares (same as CF). Drop `F05000` and `F04000` from Table 2.2 class weights in `build_end_use_map`. Map `F04000` to Exports (D0). Leave Use/Y values unchanged.
 
 ### D14 — Leftover T vs D year (SETTLED)
 
@@ -689,25 +690,11 @@ Using 2024 T/(T+D) for leftover would **not** match D6 (D6 does not keep 2024 ge
 
 **Toy:** leftover **$66**. 2017 split → T **$3.91**, D **$62.09**. 2024 split (not used) → T **$3.98**, D **$62.02**. Generation $ still **$34**; `p` unchanged.
 
-### D15 — Exports as a D0 class (SETTLED)
+### D15 — Exports as a D0 class (MERGED INTO D0)
 
-**Why this matters:** Default D0 put `F04000` in Commercial. Generation MWh on that column were `bill / p` (~**73 TWh**), which is not EIA Table 2.14 exports (2018 **13.8 TWh**). That both overstates export MWh and pollutes Commercial with non-ultimate-customer use. Direct Use was already folded into Industrial rather than parked as a dummy Use-row cell (D5). Exports get the same treatment: a physical EIA series on a real IO column.
+Settled 2026-08-22 as a separate comment, then **folded into D0** so earlier decisions constrain later ones. Physical exports as their own class (`F04000` = EIA Table 2.14 Canada + Mexico; four Table 2.2 classes share eGRID minus that MWh) is part of D0. This heading is a historical pointer, not a later override.
 
-**Resolution:** Treat physical exports as their own D0 class, sole member `F04000`.
-
-1. Export MWh = EIA Table 2.14 Canada + Mexico exports, same year as the eGRID in force (D12 on the 2017 chain; model year after D6). If Electric Power Annual lags `model_base_year`, use the latest 2.14 year and log it.
-2. Four Table 2.2 classes get shares of Total End Use × **(eGRID − export MWh)**. Relative Res / Com / Ind+DU / Trans mix unchanged. Remaining D5 gap = eGRID − export MWh − Total End Use, still smeared across those four classes. `F04000` holds **Table 2.14 only**, not the rest of the gap. No dummy losses/plant-use cell (D5).
-3. `F04000` is out of Commercial (D13 twin of `F05000`, opposite reason: `F05000` is extra import MWh; `F04000` is inside eGRID).
-4. D8 on that column: gen $ = `p` × export MWh; leftover = bill − gen; T vs D from D14. Do not reassign leftover with Table 2.4. One-purchaser class: if the bill cannot cover `p` × exports, nibble that class only (do not raid Commercial, and do not raid exports to save Commercial). 2017 bills look slack (`F04000 / p` ≫ 2.14).
-5. `q` = eGRID = domestic generation Use+Y still (four classes + `F04000`). `p` still (2017 UGO gen share × `221100` $) / eGRID. D11 imports stay extra on top. No new flag. Do not change the `F04000` dollar bill. Do not put `F04000` 100% on generation.
-
-**Not chosen:** putting the whole D5 gap on `F04000`; scaling classes by (eGRID − X) but leaving `F04000` inside Commercial; giving `F04000` both a 2.14 target and a Commercial $ share; using `F04000 / p` as EIA exports.
-
-**Why this answer:** Aligns Commercial with Table 2.2 ultimate-customer sales (GP1), keeps total generation = eGRID (GP2), keeps the export dollar bill (GP3), and treats exports as US generation used abroad (GP4). Leftover T&D on `F04000` is D8 uniformity, not a physical claim that exported kWh travel US distribution.
-
-**What we give up:** `F04000 / p` as a descriptive export MWh. Leftover T&D dollars on the export column.
-
-**Implementation:** Table 2.14 loader (`epa_02_14`, already extracted). Purchaser builder: fifth class `Exports` with one column `F04000`. End-use map: `F04000` → Exports, not Commercial. P5: do not spread `F04000` from 2017 Y column shares; assign 2.14 MWh on that column. P6: generation-row `F04000` MWh ≈ Table 2.14; Commercial class excludes `F04000`. D11 import check unchanged.
+The discussion path and not-chosen list now live under D0. GitHub permalink: [D15 comment](https://github.com/cornerstone-data/methods/discussions/88#discussioncomment-18119492).
 
 ### Phi on disaggregated electricity (SETTLED, post-#88 review)
 
