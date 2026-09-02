@@ -33,7 +33,7 @@ todos:
     content: Tests, waterfall configs, diagnostics vs frozen current-production snapshot and vs the CF report
     status: pending
   - id: later-td-buyers
-    content: "D10 settled: keep the whole U[221100,221100] cell; U[G,G] from D1; remainder on U[T,T] and U[D,D]; off-diagonals 0"
+    content: "D10 settled: T_dom = Udom[221100,221100]; Udom[G,G] from D1 clipped to T_dom; remainder on Udom T/T and D/D; Uimp intersection → Uimp[G,G] only; off-diagonals 0"
     status: completed
   - id: later-imports-egrid
     content: "D11 settled: domestic Use+Y MWh = eGRID; extra import MWh = |F05000|/p (no UGO share on imports)"
@@ -157,7 +157,7 @@ The eGRID − EIA Total End Use gap is **spread across classes** via identity 2.
 - **D7 — E and B:** keep production placement. Combustion on generation, SF₆ on transmission, distribution ~0, `B_gen /= c_col`, x from Make-last V.
 - **D8 — Leftover T&D $:** keep each purchaser’s electricity $ (old `221100` cell). Generation $ from D0; leftover = bill − generation $. If gen $ would exceed a bill, water-fill within class (not a silent nibble). Split leftover with **2017** UGO T/(T+D). `Uimp` is not a D8 bill; `F04000` is a D8 purchaser (D0 Exports class). Do not reassign leftover $ using EIA Table 2.4. D14 is the year-choice record for that freeze.
 - **D9 — Flags:** no new flags. Reallocation unchanged. Existing 3-way-split and mixed-units flags run this method. P0 freeze under `electricity_disagg_eia/` is the old-vs-new comparison.
-- **D10 — Self-use 3×3:** keep the whole `U[221100, 221100]` cell. `U[G,G]` from D1; remainder on `U[T,T]` and `U[D,D]` with 2017 UGO T/(T+D); off-diagonals 0. T/D diagonals are dollars, not extra generation MWh.
+- **D10 — Self-use 3×3:** keep the whole `U[221100, 221100]` cell. `Udom[G,G]` from D1 clipped to `T_dom`; remainder on `Udom[T,T]` / `Udom[D,D]` with 2017 UGO T/(T+D); `Uimp` intersection → `Uimp[G,G]` only (D11); off-diagonals 0. T/D diagonals are dollars, not extra generation MWh.
 - **D11 — Imports vs eGRID:** domestic generation Use+Y MWh = eGRID = `q`. Extra import MWh = `|Y[221100, F05000]| / p`. Imported `221100` is generation (no leftover split). Intermediate `Uimp` is inside `F05000`, not additional.
 - **D12 — 2017 eGRID proxy:** 2017-chain eGRID = eGRID 2016 × (EIA Table 3.1 2017 / EIA Table 3.1 2016) = **4,039 TWh**. After D6, real eGRID at `model_base_year` (canonical **2024**). Current production mixed units already do that; they do not estimate 2017 eGRID.
 - **D13 — Negative Use/Y cells:** clip to 0 only when forming within-class dollar shares. Do not zero live Use/Y cells. `F05000` and `F04000` out of Table 2.2 weights per D0. On a negative bill, generation $ = 0 and leftover may be negative on that cell only.
@@ -362,7 +362,7 @@ Table 2.4 leftover: D8 keeps each purchaser’s electricity **bill**. Leftover i
 1. Off-diagonals = 0. The generation industry buys generation only (no Table 2.4 leftover on that column).
 2. Industrial+Direct Use MWh (that class’s share of (eGRID − export MWh)) includes the generation industry. That slice × `p` is **`U[G,G]`**.
 3. Do not add Table 8.3 generation dollars on top of those MWh.
-4. T/D diagonal cells take the rest of the self-use cell (`T − U[G,G]`), in dollars, and do not add generation MWh (D10).
+4. T/D diagonal cells take the rest of **domestic** self-use (`T_dom − Udom[G,G]`), in dollars, and do not add generation MWh (D10). Imported self-use is `Uimp[G,G]` only (D11).
 
 **Why this answer:** Output = use at eGRID, class mix follows EIA end-use shares, self-use stays in Industrial+Direct Use without breaking the cap. T/D still do not buy generation, so their total EFs do not inherit generation’s direct intensity through this block.
 
@@ -531,7 +531,7 @@ Keep today’s end-use map (households = Residential; electricity children = Ind
 
 **What we give up:** Leftover dollars by class will not follow EIA Table 2.4 price gaps. All-in ¢/kWh will not equal Table 2.4. T&D dollars will not equal published EIA retail bills. A class-level nibble of D0/eGRID MWh remains possible if that class's bills cannot cover `p × class MWh` (not observed on 2017 IO).
 
-**Implementation:** For each non-electricity purchaser, domestic bill = `Udom` + Y cell of `221100` (**except** `F05000`). Do **not** include `Uimp` in the D8 bill. Assign gen $ by water-filling within class so `gen ≤ bill` and class totals hit D0 when class bills allow. `F04000` is a one-purchaser Exports class (D0): gen $ = `p` × Table 2.14 MWh; leftover = bill − gen; nibble that class only (do not raid Commercial). `td = bill − gen`. Split `td` with **2017** UGO T/(T+D) (year-choice record D14). Write all `Uimp` `221100` onto the generation row with no leftover. Electricity 3×3: D1 `U[G,G]` plus D10 remainder of self-use on `U[T,T]` / `U[D,D]`. Then Make-last. Drop compensating `w_row`.
+**Implementation:** For each non-electricity purchaser, domestic bill = `Udom` + Y cell of `221100` (**except** `F05000`). Do **not** include `Uimp` in the D8 bill. Assign gen $ by water-filling within class so `gen ≤ bill` and class totals hit D0 when class bills allow. `F04000` is a one-purchaser Exports class (D0): gen $ = `p` × Table 2.14 MWh; leftover = bill − gen; nibble that class only (do not raid Commercial). `td = bill − gen`. Split `td` with **2017** UGO T/(T+D) (year-choice record D14). Write all `Uimp` `221100` onto the generation row with no leftover (including `Uimp[221100,221100]` → `Uimp[G,G]`). Electricity 3×3: D10 `T_dom` remainder on `Udom[T,T]` / `Udom[D,D]` only. Then Make-last. Drop compensating `w_row`.
 
 ### D9 — Config flags (SETTLED)
 
@@ -556,22 +556,21 @@ Keep today’s end-use map (households = Residential; electricity children = Ind
 
 **Neither of those two hits all four.** The construction that does:
 
-- `T = U[221100, 221100]` (domestic + imported self-use $).
-- `U[G,G] = min(D1 purchaser slice, T)` — generation commodity, inside eGRID.
-- Remainder `T − U[G,G]` on **`U[T,T]` and `U[D,D]`** with **2017** UGO T/(T+D) (D14). Those cells stay **dollars** (D4 does not convert T/D to MWh), so they do not add eGRID MWh.
-- Off-diagonals 0.
+- **Domestic intersection:** `T_dom = Udom[221100, 221100]`. `Udom[G,G] = min(D1 purchaser slice, T_dom)`. Remainder `T_dom − Udom[G,G]` on **`Udom[T,T]` and `Udom[D,D]`** with **2017** UGO T/(T+D) (D14). Those cells stay **dollars**. Off-diagonals 0.
+- **Imported intersection (D11):** `Uimp[221100, 221100]` writes entirely to **`Uimp[G,G]`**. No leftover T/D on imported self-use. Import MWh sit on top of eGRID; do not put imported $ into `T_dom` or onto T/D diagonals.
+- Clip D1 against **`T_dom` only**, not `T_dom + Uimp`. After mixed units, domestic generation Use+Y MWh = eGRID; T/T and D/D stay $.
 
-Then (1) sum of diagonals = `T`; (2) Use+Y total $ unchanged, Make-last total `q`/`x` unchanged; (3) generation $ still `p × eGRID`; (4) no off-diagonals. D1 already allowed T/D diagonal cells “if any”; this is that remainder.
+Then (1) domestic diagonals sum to `T_dom`; imported self-use is extra generation $; (2) Use+Y total $ unchanged; (3) domestic generation $ still `p × eGRID`; (4) no off-diagonals.
 
-**Dollar toy:** Use+Y **$100**, self-use **$8**, D1 `U[G,G]` ≈ **$2**. Write **$2 / $0.4 / $5.6** on G/T/D diagonals (T vs D ≈ 6/94). Steel / shop / HH bills unchanged. Generation $ still **$34**. After mixed units, generation Use+Y MWh = eGRID; T/T and D/D stay $.
+**Dollar toy:** Use+Y **$100**, domestic self-use **`T_dom` $8**, D1 `U[G,G]` ≈ **$2**. Write **$2 / $0.4 / $5.6** on **Udom** G/T/D diagonals (T vs D ≈ 6/94). Imported self-use, if any, sits on `Uimp[G,G]` only. Steel / shop / HH bills unchanged. Generation $ still **$34**. After mixed units, generation Use+Y MWh = eGRID; T/T and D/D stay $.
 
-**If D1 `U[G,G]` would exceed `T`:** clip to `T` (same as D8 clip to the bill). Remainder 0. To keep (3), put the clipped generation $ on other Industrial purchasers in that class (class MWh still sums to the D0 target).
+**If D1 `U[G,G]` would exceed `T_dom`:** clip to `T_dom` (same as D8 clip to the bill). Remainder 0. To keep (3), put the clipped generation $ on other Industrial purchasers in that class (class MWh still sums to the D0 target).
 
 **Why this answer:** It is the only placement that keeps the intersection, keeps `q`/`x`, keeps eGRID, and stays diagonal. Circular T/T and D/D self-use is ordinary IO; it does not put generation emissions on T/D through this block.
 
 **What we give up:** T and D industries buy their own commodities. `U[G,G]` is still D1’s Industrial slice, not `w_G × T`.
 
-**Implementation:** After D0 writes `U[G,G]`, set `U[T,T]` and `U[D,D]` from `T − U[G,G]` with **2017** UGO T/(T+D) (D14). Do not write off-diagonals. Same ratio after D6.
+**Implementation:** After D0 writes `Udom[G,G]`, set `Udom[T,T]` and `Udom[D,D]` from `T_dom − Udom[G,G]` with **2017** UGO T/(T+D) (D14). Write `Uimp[221100,221100]` onto `Uimp[G,G]` only (D11). Do not write off-diagonals. Same rule after D6 / P5 (`T_dom` = collapsed **domestic** electricity-industry bill; Aimp intersection 100% generation).
 
 ### D11 — Imports vs the eGRID cap (SETTLED)
 
